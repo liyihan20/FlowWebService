@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ICAudit" Class="FlowDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.100.205;Initial Catalog=ICAudit;Persist Security Info=True;User ID=ICEmp" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ICAuditConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.flow_apply" Member="flow_apply">
+    <Type Name="flow_apply">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="flow_template_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="create_user" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="success" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="finish_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="sys_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="form_title" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="form_sub_title" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="user_abort" Type="System.Boolean" DbType="bit" CanBeNull="true" />
+      <Association Name="flow_apply_flow_applyEntry" Member="flow_applyEntry" ThisKey="id" OtherKey="apply_id" Type="flow_applyEntry" />
+      <Association Name="flow_template_flow_apply" Member="flow_template" ThisKey="flow_template_id" OtherKey="id" Type="flow_template" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.flow_applyEntry" Member="flow_applyEntry">
+    <Type Name="flow_applyEntry">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="apply_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="auditors" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="pass" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="audit_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="opinion" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="step" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="step_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="flow_template_entry_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="final_auditor" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="flow_apply_flow_applyEntry" Member="flow_apply" ThisKey="apply_id" OtherKey="id" Type="flow_apply" IsForeignKey="true" />
+      <Association Name="flow_templateEntry_flow_applyEntry" Member="flow_templateEntry" ThisKey="flow_template_entry_id" OtherKey="id" Type="flow_templateEntry" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.flow_template" Member="flow_template">
+    <Type Name="flow_template">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="enable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="effective_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="expire_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="bill_type" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="summary" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="creater" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="flow_template_flow_apply" Member="flow_apply" ThisKey="id" OtherKey="flow_template_id" Type="flow_apply" />
+      <Association Name="flow_template_flow_templateEntry" Member="flow_templateEntry" ThisKey="id" OtherKey="flow_id" Type="flow_templateEntry" />
+    </Type>
+  </Table>
+  <Table Name="dbo.flow_templateEntry" Member="flow_templateEntry">
+    <Type Name="flow_templateEntry">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="flow_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="step" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="step_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="auditors" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="can_be_null" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="countersign" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="pass_callback" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ng_callback" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="flow_templateEntry_flow_applyEntry" Member="flow_applyEntry" ThisKey="id" OtherKey="flow_template_entry_id" Type="flow_applyEntry" />
+      <Association Name="flow_template_flow_templateEntry" Member="flow_template" ThisKey="flow_id" OtherKey="id" Type="flow_template" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_dp_repairman" Member="vw_dp_repairman">
+    <Type Name="vw_dp_repairman">
+      <Column Name="area_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="repairman_card_number" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.flow_applyEntryQueue" Member="flow_applyEntryQueue">
+    <Type Name="flow_applyEntryQueue">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sys_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="step" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="step_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="auditors" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="countersign" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="flow_template_entry_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_department" Member="ei_department">
+    <Type Name="ei_department">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FNumber" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="FName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="FAdmin" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="FParent" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="FIsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FIsForbit" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FCreator" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FCreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FIsAuditNode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="ei_department_ei_departmentAuditNode" Member="ei_departmentAuditNode" ThisKey="id" OtherKey="FDepartmentId" Type="ei_departmentAuditNode" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_departmentAuditNode" Member="ei_departmentAuditNode">
+    <Type Name="ei_departmentAuditNode">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FDepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FIsCounterSign" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FAuditNodeName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="FProcessName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="ei_departmentAuditNode_ei_departmentAuditUser" Member="ei_departmentAuditUser" ThisKey="id" OtherKey="FDepartmentNodeId" Type="ei_departmentAuditUser" />
+      <Association Name="ei_department_ei_departmentAuditNode" Member="ei_department" ThisKey="FDepartmentId" OtherKey="id" Type="ei_department" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_departmentAuditUser" Member="ei_departmentAuditUser">
+    <Type Name="ei_departmentAuditUser">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FDepartmentNodeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FAuditorNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FBeginTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="FEndTime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="isDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="ei_departmentAuditNode_ei_departmentAuditUser" Member="ei_departmentAuditNode" ThisKey="FDepartmentNodeId" OtherKey="id" Type="ei_departmentAuditNode" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_leaving_days" Member="vw_leaving_days">
+    <Type Name="vw_leaving_days">
+      <Column Name="applier_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="applier_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="leave_type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="from_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="to_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="work_days" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="work_hours" Type="System.Decimal" DbType="Decimal(4,1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_workAgent" Member="ei_workAgent">
+    <Type Name="ei_workAgent">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="emp_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="agent_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="begin_time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="end_time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.DP_InsertRepairCost" Method="DP_InsertRepairCost">
+    <Parameter Name="dorm_number" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="emp_card" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="repair_cost" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="sys_no" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="repair_subject" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="year_month" Type="System.String" DbType="VarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

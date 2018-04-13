@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 8.5" name="FlowDB">
+  <DataContextMoniker Name="/FlowDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="a9b5678d-7413-4dc0-b7e5-bfc6d9c33e05" isExpanded="false" absoluteBounds="2.25, 1.375, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/flow_apply" />
+      <nestedChildShapes>
+        <elementListCompartment Id="23ddcfd2-fa20-4fb5-8cff-5ddda9611371" absoluteBounds="2.2649999999999997, 1.835, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8a874284-836d-4bdb-9ee7-c4f8f1b7cf53" isExpanded="false" absoluteBounds="5.25, 1.375, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/flow_applyEntry" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e5044a13-eabe-48bc-9760-2ffd82dc169a" absoluteBounds="5.2650000000000006, 1.835, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.25 : 1.6); (5.25 : 1.6)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FlowDBDataContext/flow_apply/flow_apply_flow_applyEntry" />
+      <nodes>
+        <classShapeMoniker Id="a9b5678d-7413-4dc0-b7e5-bfc6d9c33e05" />
+        <classShapeMoniker Id="8a874284-836d-4bdb-9ee7-c4f8f1b7cf53" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="4bf80715-52d5-487b-9214-c5330c6fdae2" isExpanded="false" absoluteBounds="2.25, 2.5, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/flow_template" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cbef7b76-e4bd-4c14-b478-ad60022935b4" absoluteBounds="2.265, 2.96, 1.9700000000000002, 1.966644287109375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.25 : 2.5); (3.25 : 1.825)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FlowDBDataContext/flow_template/flow_template_flow_apply" />
+      <nodes>
+        <classShapeMoniker Id="4bf80715-52d5-487b-9214-c5330c6fdae2" />
+        <classShapeMoniker Id="a9b5678d-7413-4dc0-b7e5-bfc6d9c33e05" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="83ca0d28-e952-4ac5-8bcb-e24a19e27426" isExpanded="false" absoluteBounds="5.25, 2.5, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/flow_templateEntry" />
+      <nestedChildShapes>
+        <elementListCompartment Id="67bcad2e-53fb-4313-ac0c-210b45ed9623" absoluteBounds="5.265, 2.96, 1.9700000000000002, 1.966644287109375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.25 : 2.5); (6.25 : 1.825)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FlowDBDataContext/flow_templateEntry/flow_templateEntry_flow_applyEntry" />
+      <nodes>
+        <classShapeMoniker Id="83ca0d28-e952-4ac5-8bcb-e24a19e27426" />
+        <classShapeMoniker Id="8a874284-836d-4bdb-9ee7-c4f8f1b7cf53" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.25 : 2.725); (5.25 : 2.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FlowDBDataContext/flow_template/flow_template_flow_templateEntry" />
+      <nodes>
+        <classShapeMoniker Id="4bf80715-52d5-487b-9214-c5330c6fdae2" />
+        <classShapeMoniker Id="83ca0d28-e952-4ac5-8bcb-e24a19e27426" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="01eea6ed-f339-4d02-a28a-8e4b994114c3" isExpanded="false" absoluteBounds="9, 1.375, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/vw_dp_repairman" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b7fec085-6126-4e11-a18e-fcc29481d7a0" absoluteBounds="9.015, 1.835, 1.9700000000000002, 0.62950642903645826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6c15c3d9-e322-4256-82da-4a34f1b69ad3" isExpanded="false" absoluteBounds="9, 2.375, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/flow_applyEntryQueue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c4197c05-431d-4d25-b47d-db89f040714a" absoluteBounds="9.015, 2.835, 1.9700000000000002, 1.5846048990885415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ed987b7a-9dd2-4c33-b52a-6b40505d2c9e" isExpanded="false" absoluteBounds="9, 3.375, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_department" />
+      <nestedChildShapes>
+        <elementListCompartment Id="02b819b4-e695-4ac4-afdf-b464df372149" absoluteBounds="9.015, 3.835, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="664643cc-e756-47c0-a033-06a33d7ef975" isExpanded="false" absoluteBounds="9, 4.5, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_departmentAuditNode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e7a5c269-9bef-4d26-a44f-7902d7790f6a" absoluteBounds="9.015, 4.9600000000000009, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(10 : 3.825); (10 : 4.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FlowDBDataContext/ei_department/ei_department_ei_departmentAuditNode" />
+      <nodes>
+        <classShapeMoniker Id="ed987b7a-9dd2-4c33-b52a-6b40505d2c9e" />
+        <classShapeMoniker Id="664643cc-e756-47c0-a033-06a33d7ef975" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="74d5f922-e01b-4b2c-95fe-1bec0ec7716e" isExpanded="false" absoluteBounds="9, 5.625, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_departmentAuditUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cae11431-e7b6-4fbc-8b99-a092a6b64d79" absoluteBounds="9.015, 6.0850000000000009, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(10 : 4.95); (10 : 5.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FlowDBDataContext/ei_departmentAuditNode/ei_departmentAuditNode_ei_departmentAuditUser" />
+      <nodes>
+        <classShapeMoniker Id="664643cc-e756-47c0-a033-06a33d7ef975" />
+        <classShapeMoniker Id="74d5f922-e01b-4b2c-95fe-1bec0ec7716e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="569facf1-9c52-4d37-badf-345be10dd499" isExpanded="false" absoluteBounds="5.25, 3.5, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/vw_leaving_days" />
+      <nestedChildShapes>
+        <elementListCompartment Id="03683101-b106-4ec4-957c-565222cd1759" absoluteBounds="5.265, 3.96, 1.9700000000000002, 1.5846048990885415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d1952f8b-3301-49c6-a1d6-c80ffda17717" isExpanded="false" absoluteBounds="5.25, 4.625, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_workAgent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cb7107b3-fedf-48d8-a0ee-3329b7090004" absoluteBounds="5.265, 5.085, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
