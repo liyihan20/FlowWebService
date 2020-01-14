@@ -5,6 +5,7 @@ using System.Web;
 using FlowWebService.Interface;
 using FlowWebService.Models;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace FlowWebService.Rules
 {
@@ -12,7 +13,7 @@ namespace FlowWebService.Rules
     /// 请假流程
     /// 这个没有固定的流程模板，大部分的审批节点只能在代码中动态生成，连第一级审批都是未知的
     /// </summary>
-    public class ALRule:BaseRule,IBeforeStartFlow,IFinishFlow
+    public class ALRule:BaseRule,IBeforeStartFlow,IFinishFlow,IFlowQueue
     {
         JObject o;
         FlowDBDataContext db = new FlowDBDataContext();
@@ -20,17 +21,26 @@ namespace FlowWebService.Rules
 
         public void Validate(string formObj, string createUser)
         {
-            if (db.flow_apply.Where(a => a.create_user == createUser && a.success == null).Count() > 0) {
+            if (db.flow_apply.Where(a => a.create_user == createUser && a.flow_template.bill_type=="AL" && a.success == null).Count() > 0) {
                 throw new Exception("存在未完成的请假申请流程，结束之前不能再次申请");
             }
         }
 
         public void DoBeforeFlow(string formObj)
         {
-            //流程开始之前，先将审核人队列准备好
-            var queue = GetALAuditQueue(formObj);
-            db.flow_applyEntryQueue.InsertAllOnSubmit(queue);
-            db.SubmitChanges();
+            o = JObject.Parse(formObj);
+            string auditorQueues = (string)o["auditor_queues"];
+            if (string.IsNullOrEmpty(auditorQueues)) {
+                //流程开始之前，先将审核人队列准备好
+                var queue = GetALAuditQueue(formObj);
+                db.flow_applyEntryQueue.InsertAllOnSubmit(queue);
+                db.SubmitChanges();
+            }
+            else {
+                List<flow_applyEntryQueue> list = JsonConvert.DeserializeObject<List<flow_applyEntryQueue>>(auditorQueues);
+                db.flow_applyEntryQueue.InsertAllOnSubmit(list);
+                db.SubmitChanges();
+            }
         }
 
         public void DoAfterFlowSucceed(string formObj,flow_apply apply)
@@ -67,7 +77,7 @@ namespace FlowWebService.Rules
             }
         }
 
-        public List<flow_applyEntryQueue> GetALAuditQueue(string formObj)
+        private List<flow_applyEntryQueue> GetALAuditQueue(string formObj)
         {
             List<flow_applyEntryQueue> list = new List<flow_applyEntryQueue>();
 
@@ -80,13 +90,14 @@ namespace FlowWebService.Rules
             string leaveType = (string)o["leave_type"];
             int workDays = (int)o["work_days"];
             decimal workHours = (decimal)o["work_hours"];
+            bool isContinue = ((bool?)o["is_continue"]) ?? false;
 
             //走集团流程的部门
-            bool isCopFlow = true;
-            string[] copDepNames = new string[] { "信利半导体有限公司", "总裁办", "信利电子有限公司", "信利光电股份有限公司" };
+            bool isCopFlow = false;
+            string[] copDepNames = new string[] { "信利工业有限公司", "信利仪器有限公司" };
             foreach (var d in db.ei_department.Where(d => copDepNames.Contains(d.FName)).ToList()) {
                 if (depNo.StartsWith(d.FNumber)) {
-                    isCopFlow = false;
+                    isCopFlow = true;
                     break;
                 }
             }
@@ -106,7 +117,7 @@ namespace FlowWebService.Rules
                 
                 if (empLevel < 1) {
                     //组长以下，至少需要本部门和上一级部门负责人审批 
-                    var n0 = GetParentDepAuditor(depNo, PROCESSNAME, 0, false);
+                    var n0 = GetParentDepAuditor(depNo, PROCESSNAME, 0, false);                    
                     n0.sys_no = sysNo;
                     n0.step = stepNum++;
                     list.Add(n0);
@@ -138,6 +149,9 @@ namespace FlowWebService.Rules
                 else if (empLevel < 7) {
                     //组长以上，经理/主管以下，至少需要本部门负责人和行政/HR审批
                     var n0 = GetParentDepAuditor(depNo, PROCESSNAME, 0, false);
+                    if (n0.step_name.Contains("组长")) {
+                        n0 = GetParentDepAuditor(depNo, PROCESSNAME, 1, false); //如果当前选择的部门是组长审批的，此职位级别要上级部门审批
+                    }
                     n0.sys_no = sysNo;
                     n0.step = stepNum++;
                     list.Add(n0);
@@ -184,18 +198,22 @@ namespace FlowWebService.Rules
 
                     var n1 = GetParentDepAuditor(depNo, PROCESSNAME, 1);
                     if (n1 != null) {
-                        n1.sys_no = sysNo;
-                        n1.step = stepNum++;
-                        list.Add(n1);
-                    }                    
+                        if (list.Where(l => l.auditors.Contains(n1.auditors)).Count() < 1) { //如果此节点审核人不存在已之前步骤的审批人中，即加入
+                            n1.sys_no = sysNo;
+                            n1.step = stepNum++;
+                            list.Add(n1);
+                        }
+                    }
 
                     if (workDays >= 10) {
                         //10天以上需要上上级审批
                         var n2 = GetParentDepAuditor(depNo, PROCESSNAME, 2);
                         if (n2 != null) {
-                            n2.sys_no = sysNo;
-                            n2.step = stepNum++;
-                            list.Add(n2);
+                            if (list.Where(l => l.auditors.Contains(n2.auditors)).Count() < 1) { //如果此节点审核人不存在已之前步骤的审批人中，即加入
+                                n2.sys_no = sysNo;
+                                n2.step = stepNum++;
+                                list.Add(n2);
+                            }
                         }
                     }
                     if (workDays >= 15) {
@@ -210,18 +228,25 @@ namespace FlowWebService.Rules
                 }
                 else if (empLevel < 7) {
                     //组长以上，经理/主管以下，至少需要本部门负责人审批
-                    var n0 = GetParentDepAuditor(depNo, PROCESSNAME, 0,false);
+                    int skipNum = 0;
+                    var n0 = GetParentDepAuditor(depNo, PROCESSNAME, skipNum, false);
+                    if (n0.step_name.Contains("组长")) {
+                        n0 = GetParentDepAuditor(depNo, PROCESSNAME, ++skipNum, false); //如果当前选择的部门是组长审批的，此职位级别要上级部门审批
+                    }
+
                     n0.sys_no = sysNo;
                     n0.step = stepNum++;
                     list.Add(n0);
 
                     if (workDays >= 3) { 
                         //3天以上需要上一级负责人审批
-                        var n1 = GetParentDepAuditor(depNo, PROCESSNAME, 1);
+                        var n1 = GetParentDepAuditor(depNo, PROCESSNAME, ++skipNum);                        
                         if (n1 != null) {
-                            n1.sys_no = sysNo;
-                            n1.step = stepNum++;
-                            list.Add(n1);
+                            if (list.Where(l => l.auditors.Contains(n1.auditors)).Count() < 1) { //如果此节点审核人不存在已之前步骤的审批人中，即加入
+                                n1.sys_no = sysNo;
+                                n1.step = stepNum++;
+                                list.Add(n1);
+                            }
                         }
                     }
                     if (workDays >= 10) {
@@ -265,10 +290,12 @@ namespace FlowWebService.Rules
                         if (workDays >= 10) {
                             //10天以上需要董事总经理审批
                             if (ceoDep != null) {
-                                var n2 = GetGivenDepAuditor(ceoDep, PROCESSNAME);                                
+                                var n2 = GetGivenDepAuditor(ceoDep, PROCESSNAME,true);
+                                if (n2 != null) {
                                     n2.sys_no = sysNo;
                                     n2.step = stepNum++;
-                                    list.Add(n2);                                
+                                    list.Add(n2);
+                                }
                             }
                         }
                     }
@@ -276,31 +303,145 @@ namespace FlowWebService.Rules
             }
 
             //病假60天内累计请假大于30天，或除了产假、病假之外，其它假60天内累计大于15天,需要行政部审批
-            DateTime twoMonthsAgo=DateTime.Now.AddMonths(-2);
+            DateTime twoMonthsAgo = DateTime.Now.AddMonths(-2);
             string administrationNo = "1"; //集团,行政审批
-            if ("病假".Equals(leaveType)) {
-                int sickDaysInTwoMonths = workDays;
-                var sickRecord = db.vw_leaving_days.Where(v => v.applier_num == cardNo && v.leave_type == "病假" && v.from_date >= twoMonthsAgo).ToList();
-                if (sickRecord.Count() > 0) {
-                    sickDaysInTwoMonths += sickRecord.Sum(s => s.work_days) ?? 0 + (int)Math.Floor((sickRecord.Sum(s => s.work_hours) ?? 0) / 8);
-                }
-                if (sickDaysInTwoMonths >= 30) {
+            //惠州的由惠州那边行政负责
+            if (depNo.StartsWith("106")) {
+                administrationNo = "106";
+            }
+            //else if (workDays <= 20) { //最近1年没有请过假的，在过年的月份里，请假少于20天的不需要经过行政部
+            //    if (DateTime.Now.Month == 1 || DateTime.Now.Month == 2) {
+            //        var lastYear = DateTime.Parse(DateTime.Now.AddYears(-1).ToString("yyyy-02-01"));
+            //        if (db.flow_apply.Where(f => f.create_user == cardNo && f.start_date >= lastYear && f.sys_no!=sysNo).Count() == 0) {
+            //            return list;
+            //        }
+            //    }
+            //}
+            
+            if ("产假延期".Equals(leaveType)) {
+                //选择了产假延期，不管多少天，都要经过行政部审批
+                var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
+                ad.sys_no = sysNo;
+                ad.step = stepNum++;
+                list.Add(ad);
+            }else if ("病假".Equals(leaveType)) {
+
+                //2019-10-17起，只要病假请假天数大于10天，就需要行政部审批
+                if (workDays >= 10) {
                     var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
                     ad.sys_no = sysNo;
                     ad.step = stepNum++;
                     list.Add(ad);
                 }
-            }else if (!"产假".Equals("leaveType")) {
-                int leaveDays = workDays;
-                var leavRecord = db.vw_leaving_days.Where(v => v.applier_num == cardNo && v.leave_type != "病假" && v.leave_type != "产假" && v.from_date >= twoMonthsAgo).ToList();
-                if (leavRecord.Count() > 0) {
-                    leaveDays += leavRecord.Sum(l => l.work_days) ?? 0 + (int)Math.Floor((leavRecord.Sum(s => s.work_hours) ?? 0) / 8);
-                }
-                if (leaveDays >= 15) {
+
+                //已经由行政发送了面谈通知的，就不要再计算
+                //var adminTalkRecord = (from v in db.vw_leaving_days
+                //                       join p in db.ei_leaveDayExceedPushLog on v.sys_no equals p.sys_no
+                //                       where v.applier_num == cardNo
+                //                       && v.leave_type == "病假"
+                //                       && v.from_date > twoMonthsAgo
+                //                       select v).ToList();               
+
+                //if (adminTalkRecord.Count() > 0) {
+                //    twoMonthsAgo = (DateTime)adminTalkRecord.OrderByDescending(a => a.to_date).First().to_date;
+                //}
+
+                //int sickDaysInTwoMonths = workDays;
+                //decimal sickHoursInTwoMonths = workHours;
+                //var sickRecord = db.vw_leaving_days.Where(v => v.applier_num == cardNo && v.leave_type == "病假" && v.to_date > twoMonthsAgo).ToList();
+                //foreach (var sr in sickRecord) {
+                //    if (sr.from_date > twoMonthsAgo) {
+                //        sickDaysInTwoMonths += sr.work_days ?? 0;
+                //    }
+                //    else {
+                //        sickDaysInTwoMonths += ((DateTime)sr.to_date - twoMonthsAgo).Days;
+                //    }
+                //    sickHoursInTwoMonths += sr.work_hours ?? 0;
+                //}
+                //sickDaysInTwoMonths += (int)Math.Floor(sickHoursInTwoMonths / 8);
+                //if (sickDaysInTwoMonths >= 30) {
+                //    var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
+                //    ad.sys_no = sysNo;
+                //    ad.step = stepNum++;
+                //    list.Add(ad);
+                //}
+            }
+            else if (!"产假".Equals(leaveType) && !"年假".Equals(leaveType)) {
+                if (workDays >= 15) {
+                    //单次请假大于15天的，需要到行政审批
                     var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
                     ad.sys_no = sysNo;
                     ad.step = stepNum++;
                     list.Add(ad);
+                }
+                else {
+
+                    string[] otherLeaveType = new string[] { "病假", "产假", "年假" };
+
+                    //以下判断两个月累计是否超过30天的，不管是否有行政约谈过
+                    var leaveRecord = db.vw_leaving_days.Where(v => v.applier_num == cardNo && !otherLeaveType.Contains(v.leave_type) && v.to_date > twoMonthsAgo).ToList();
+                    int leaveDaysInTwoMonths = workDays;
+                    decimal leaveHoursInTwoMonths = workHours;
+
+                    foreach (var lr in leaveRecord) {
+                        if (lr.from_date > twoMonthsAgo) {
+                            leaveDaysInTwoMonths += lr.work_days ?? 0;
+                        }
+                        else {
+                            leaveDaysInTwoMonths += ((DateTime)lr.to_date - twoMonthsAgo).Days;
+                        }
+                        leaveHoursInTwoMonths += lr.work_hours ?? 0;
+                    }
+
+                    leaveDaysInTwoMonths += (int)Math.Floor(leaveHoursInTwoMonths / 8);
+                    if (leaveDaysInTwoMonths >= 30) {
+                        var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
+                        ad.sys_no = sysNo;
+                        ad.step = stepNum++;
+                        list.Add(ad);
+                    }
+                    else {
+                        //延假 2018-07-10
+                        //以下判断是否连续请假15天，行政约谈过的就不用计算
+                        if (leaveRecord.Count() > 0 && isContinue) {
+                            int totalDays = workDays;
+                            decimal totalHours = workHours;
+                            var lastRecord = leaveRecord.OrderByDescending(l => l.to_date).First();
+                            var hasPush = db.ei_leaveDayExceedPushLog.Where(e => e.sys_no == lastRecord.sys_no).Count() > 0;
+                            if (!hasPush) {
+                                totalDays += lastRecord.work_days ?? 0;
+                                totalHours += lastRecord.work_hours ?? 0;
+                            }
+                            int skipNum = 0;
+                            while (lastRecord.is_continue) {
+                                if (leaveRecord.Count() > (++skipNum)) {
+                                    lastRecord = leaveRecord.OrderByDescending(l => l.to_date).Skip(skipNum).First();
+                                    hasPush = db.ei_leaveDayExceedPushLog.Where(e => e.sys_no == lastRecord.sys_no).Count() > 0;
+                                    if (!hasPush) {
+                                        //为行政约谈的
+                                        totalDays += lastRecord.work_days ?? 0;
+                                        totalHours += lastRecord.work_hours ?? 0;
+                                    }
+                                    else {
+                                        //已行政约谈的，跳出循环
+                                        break;
+                                    }
+                                }
+                                else {
+                                    //请假条数不足，跳出循环
+                                    break;
+                                }
+                            }
+                            totalDays += (int)Math.Floor(totalHours / 8);
+                            if (totalDays >= 15) {
+                                var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
+                                ad.sys_no = sysNo;
+                                ad.step = stepNum++;
+                                list.Add(ad);
+                            }
+                        }
+
+                    }
                 }
             }
 
@@ -362,7 +503,11 @@ namespace FlowWebService.Rules
             return new FlowResultModel(true, "撤销申请提交成功", string.Join(";", s1.Select(s => s.auditors).ToArray()));
 
         }
-        
 
+        
+        public List<flow_applyEntryQueue> GetFlowQueue(string formObj)
+        {
+            return GetALAuditQueue(formObj);
+        }
     }
 }

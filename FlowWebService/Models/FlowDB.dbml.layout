@@ -14,7 +14,7 @@
         <elementListCompartment Id="e5044a13-eabe-48bc-9760-2ffd82dc169a" absoluteBounds="5.2650000000000006, 1.835, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.25 : 1.6); (5.25 : 1.6)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.25 : 1.6); (5.25 : 1.6)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FlowDBDataContext/flow_apply/flow_apply_flow_applyEntry" />
       <nodes>
         <classShapeMoniker Id="a9b5678d-7413-4dc0-b7e5-bfc6d9c33e05" />
@@ -40,14 +40,14 @@
         <elementListCompartment Id="67bcad2e-53fb-4313-ac0c-210b45ed9623" absoluteBounds="5.265, 2.96, 1.9700000000000002, 1.966644287109375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.25 : 2.5); (6.25 : 1.825)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.25 : 2.5); (6.25 : 1.825)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FlowDBDataContext/flow_templateEntry/flow_templateEntry_flow_applyEntry" />
       <nodes>
         <classShapeMoniker Id="83ca0d28-e952-4ac5-8bcb-e24a19e27426" />
         <classShapeMoniker Id="8a874284-836d-4bdb-9ee7-c4f8f1b7cf53" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.25 : 2.725); (5.25 : 2.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.25 : 2.725); (5.25 : 2.725)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FlowDBDataContext/flow_template/flow_template_flow_templateEntry" />
       <nodes>
         <classShapeMoniker Id="4bf80715-52d5-487b-9214-c5330c6fdae2" />
@@ -98,16 +98,46 @@
         <classShapeMoniker Id="74d5f922-e01b-4b2c-95fe-1bec0ec7716e" />
       </nodes>
     </associationConnector>
-    <classShape Id="569facf1-9c52-4d37-badf-345be10dd499" isExpanded="false" absoluteBounds="5.25, 3.5, 2, 0.45">
-      <DataClassMoniker Name="/FlowDBDataContext/vw_leaving_days" />
-      <nestedChildShapes>
-        <elementListCompartment Id="03683101-b106-4ec4-957c-565222cd1759" absoluteBounds="5.265, 3.96, 1.9700000000000002, 1.5846048990885415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="d1952f8b-3301-49c6-a1d6-c80ffda17717" isExpanded="false" absoluteBounds="5.25, 4.625, 2, 0.45">
+    <classShape Id="d1952f8b-3301-49c6-a1d6-c80ffda17717" isExpanded="false" absoluteBounds="5.125, 5.5, 2, 0.45">
       <DataClassMoniker Name="/FlowDBDataContext/ei_workAgent" />
       <nestedChildShapes>
-        <elementListCompartment Id="cb7107b3-fedf-48d8-a0ee-3329b7090004" absoluteBounds="5.265, 5.085, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="cb7107b3-fedf-48d8-a0ee-3329b7090004" absoluteBounds="5.14, 5.96, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="04ec672e-0a80-4659-9f2a-d169dc32957b" isExpanded="false" absoluteBounds="5.125, 4.625, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_leaveDayExceedPushLog" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0ff7f211-240d-4449-8af2-7b2ee1c6efda" absoluteBounds="5.14, 5.085, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b12db2ba-f715-4c8d-aeb8-62fc1da19a64" isExpanded="false" absoluteBounds="2.25, 3.625, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/vw_leaving_days" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2e37761a-ef4e-4c8b-854d-1cd089636dc4" absoluteBounds="2.265, 4.085, 1.9700000000000002, 2.348683675130208" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7d34910d-52cd-45c2-885e-52dfd4dd3c81" isExpanded="false" absoluteBounds="5.25, 3.625, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/flow_auditorRelation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ecebeeab-1009-49ca-80f1-4261650a4f69" absoluteBounds="5.2650000000000006, 4.085, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b0dcc499-eb44-4805-876e-a83b641d50d3" isExpanded="false" absoluteBounds="2.25, 4.625, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/vw_ep_repairers" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0392f1cf-3ed6-4e27-8ffe-bed0b997310b" absoluteBounds="2.265, 5.085, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a3e2cbfa-6aba-48f5-9793-b3936a91260c" isExpanded="false" absoluteBounds="2.25, 5.5, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_ieAuditors" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9de673f0-cba4-4e21-a762-47f9e2cf7b13" absoluteBounds="2.265, 5.96, 1.9700000000000002, 1.5846048990885415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bcb5ff6c-a6a1-49d0-b976-7e60b2a239c3" isExpanded="false" absoluteBounds="5.125, 6.25, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_jqApply" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5a443f19-4c44-4c84-b838-eb3ad82441fb" absoluteBounds="5.14, 6.71, 1.9700000000000002, 8.6523335774739571" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

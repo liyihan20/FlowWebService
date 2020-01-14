@@ -116,17 +116,6 @@
       <Association Name="ei_departmentAuditNode_ei_departmentAuditUser" Member="ei_departmentAuditNode" ThisKey="FDepartmentNodeId" OtherKey="id" Type="ei_departmentAuditNode" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.vw_leaving_days" Member="vw_leaving_days">
-    <Type Name="vw_leaving_days">
-      <Column Name="applier_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="applier_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="leave_type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="from_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="to_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="work_days" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="work_hours" Type="System.Decimal" DbType="Decimal(4,1)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.ei_workAgent" Member="ei_workAgent">
     <Type Name="ei_workAgent">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -136,6 +125,108 @@
       <Column Name="end_time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ei_leaveDayExceedPushLog" Member="ei_leaveDayExceedPushLog">
+    <Type Name="ei_leaveDayExceedPushLog">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sys_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="send_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="book_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="send_user" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_leaving_days" Member="vw_leaving_days">
+    <Type Name="vw_leaving_days">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sys_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="applier_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="applier_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="leave_type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="from_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="to_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="work_days" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="work_hours" Type="System.Decimal" DbType="Decimal(4,1)" CanBeNull="true" />
+      <Column Name="apply_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="is_continue" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.flow_auditorRelation" Member="flow_auditorRelation">
+    <Type Name="flow_auditorRelation">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="bill_type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="relate_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="relate_value" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="relate_text" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_ep_repairers" Member="vw_ep_repairers">
+    <Type Name="vw_ep_repairers">
+      <Column Name="eq_dep_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="eq_dep_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pr_dep_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pr_dep_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="repairer_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="repairer_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_ieAuditors" Member="ei_ieAuditors">
+    <Type Name="ei_ieAuditors">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="bus_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="dep_names" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="bus_minister_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="bus_minister_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ie_leader_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ie_leader_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_jqApply" Member="ei_jqApply">
+    <Type Name="ei_jqApply">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sys_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="applier_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="applier_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="apply_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="quit_type" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="card_number" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="dep_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="education" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="salary_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="hometown" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="account" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="absent_from" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="absent_to" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="absent_days" Type="System.Decimal" DbType="Decimal(4,1)" CanBeNull="true" />
+      <Column Name="has_connect_emp" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
+      <Column Name="connect_emp_phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="has_connect_family" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
+      <Column Name="connect_family_phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="has_resign_apply" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
+      <Column Name="auto_quit_comment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="quit_reason" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="quit_suggestion" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="work_evaluation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="work_comment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="wanna_employ" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="employ_comment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="group_leader_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="group_leader_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="charger_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="charger_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="produce_minister_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="produce_minister_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="dep_charger_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="dep_charger_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="highest_charger_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="highest_charger_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="resign_apply_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="salary_clear_way" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="leave_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="check1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.DP_InsertRepairCost" Method="DP_InsertRepairCost">
     <Parameter Name="dorm_number" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="emp_card" Type="System.String" DbType="VarChar(50)" />
@@ -143,6 +234,12 @@
     <Parameter Name="sys_no" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="repair_subject" Type="System.String" DbType="VarChar(500)" />
     <Parameter Name="year_month" Type="System.String" DbType="VarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SetK3StockAdmin" Method="SetK3StockAdmin">
+    <Parameter Name="accountName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="stockNumber" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="cardNumber" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

@@ -57,6 +57,18 @@ namespace FlowWebService.Models
     partial void Insertei_workAgent(ei_workAgent instance);
     partial void Updateei_workAgent(ei_workAgent instance);
     partial void Deleteei_workAgent(ei_workAgent instance);
+    partial void Insertei_leaveDayExceedPushLog(ei_leaveDayExceedPushLog instance);
+    partial void Updateei_leaveDayExceedPushLog(ei_leaveDayExceedPushLog instance);
+    partial void Deleteei_leaveDayExceedPushLog(ei_leaveDayExceedPushLog instance);
+    partial void Insertflow_auditorRelation(flow_auditorRelation instance);
+    partial void Updateflow_auditorRelation(flow_auditorRelation instance);
+    partial void Deleteflow_auditorRelation(flow_auditorRelation instance);
+    partial void Insertei_ieAuditors(ei_ieAuditors instance);
+    partial void Updateei_ieAuditors(ei_ieAuditors instance);
+    partial void Deleteei_ieAuditors(ei_ieAuditors instance);
+    partial void Insertei_jqApply(ei_jqApply instance);
+    partial void Updateei_jqApply(ei_jqApply instance);
+    partial void Deleteei_jqApply(ei_jqApply instance);
     #endregion
 		
 		public FlowDBDataContext() : 
@@ -161,14 +173,6 @@ namespace FlowWebService.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<vw_leaving_days> vw_leaving_days
-		{
-			get
-			{
-				return this.GetTable<vw_leaving_days>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ei_workAgent> ei_workAgent
 		{
 			get
@@ -177,10 +181,65 @@ namespace FlowWebService.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<ei_leaveDayExceedPushLog> ei_leaveDayExceedPushLog
+		{
+			get
+			{
+				return this.GetTable<ei_leaveDayExceedPushLog>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_leaving_days> vw_leaving_days
+		{
+			get
+			{
+				return this.GetTable<vw_leaving_days>();
+			}
+		}
+		
+		public System.Data.Linq.Table<flow_auditorRelation> flow_auditorRelation
+		{
+			get
+			{
+				return this.GetTable<flow_auditorRelation>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_ep_repairers> vw_ep_repairers
+		{
+			get
+			{
+				return this.GetTable<vw_ep_repairers>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ei_ieAuditors> ei_ieAuditors
+		{
+			get
+			{
+				return this.GetTable<ei_ieAuditors>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ei_jqApply> ei_jqApply
+		{
+			get
+			{
+				return this.GetTable<ei_jqApply>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DP_InsertRepairCost")]
 		public int DP_InsertRepairCost([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string dorm_number, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string emp_card, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Decimal(8,2)")] System.Nullable<decimal> repair_cost, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string sys_no, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(500)")] string repair_subject, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string year_month)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dorm_number, emp_card, repair_cost, sys_no, repair_subject, year_month);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SetK3StockAdmin")]
+		public int SetK3StockAdmin([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string accountName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string stockNumber, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string cardNumber)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), accountName, stockNumber, cardNumber);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -2532,141 +2591,6 @@ namespace FlowWebService.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_leaving_days")]
-	public partial class vw_leaving_days
-	{
-		
-		private string _applier_num;
-		
-		private string _applier_name;
-		
-		private string _leave_type;
-		
-		private System.Nullable<System.DateTime> _from_date;
-		
-		private System.Nullable<System.DateTime> _to_date;
-		
-		private System.Nullable<int> _work_days;
-		
-		private System.Nullable<decimal> _work_hours;
-		
-		public vw_leaving_days()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_applier_num", DbType="VarChar(50)")]
-		public string applier_num
-		{
-			get
-			{
-				return this._applier_num;
-			}
-			set
-			{
-				if ((this._applier_num != value))
-				{
-					this._applier_num = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_applier_name", DbType="VarChar(50)")]
-		public string applier_name
-		{
-			get
-			{
-				return this._applier_name;
-			}
-			set
-			{
-				if ((this._applier_name != value))
-				{
-					this._applier_name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_leave_type", DbType="VarChar(50)")]
-		public string leave_type
-		{
-			get
-			{
-				return this._leave_type;
-			}
-			set
-			{
-				if ((this._leave_type != value))
-				{
-					this._leave_type = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_from_date", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> from_date
-		{
-			get
-			{
-				return this._from_date;
-			}
-			set
-			{
-				if ((this._from_date != value))
-				{
-					this._from_date = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_to_date", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> to_date
-		{
-			get
-			{
-				return this._to_date;
-			}
-			set
-			{
-				if ((this._to_date != value))
-				{
-					this._to_date = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_work_days", DbType="Int")]
-		public System.Nullable<int> work_days
-		{
-			get
-			{
-				return this._work_days;
-			}
-			set
-			{
-				if ((this._work_days != value))
-				{
-					this._work_days = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_work_hours", DbType="Decimal(4,1)")]
-		public System.Nullable<decimal> work_hours
-		{
-			get
-			{
-				return this._work_hours;
-			}
-			set
-			{
-				if ((this._work_hours != value))
-				{
-					this._work_hours = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_workAgent")]
 	public partial class ei_workAgent : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2800,6 +2724,1946 @@ namespace FlowWebService.Models
 					this._end_time = value;
 					this.SendPropertyChanged("end_time");
 					this.Onend_timeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_leaveDayExceedPushLog")]
+	public partial class ei_leaveDayExceedPushLog : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _sys_no;
+		
+		private System.Nullable<System.DateTime> _send_date;
+		
+		private System.Nullable<System.DateTime> _book_date;
+		
+		private string _send_user;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onsys_noChanging(string value);
+    partial void Onsys_noChanged();
+    partial void Onsend_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onsend_dateChanged();
+    partial void Onbook_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onbook_dateChanged();
+    partial void Onsend_userChanging(string value);
+    partial void Onsend_userChanged();
+    #endregion
+		
+		public ei_leaveDayExceedPushLog()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sys_no", DbType="VarChar(50)")]
+		public string sys_no
+		{
+			get
+			{
+				return this._sys_no;
+			}
+			set
+			{
+				if ((this._sys_no != value))
+				{
+					this.Onsys_noChanging(value);
+					this.SendPropertyChanging();
+					this._sys_no = value;
+					this.SendPropertyChanged("sys_no");
+					this.Onsys_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_send_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> send_date
+		{
+			get
+			{
+				return this._send_date;
+			}
+			set
+			{
+				if ((this._send_date != value))
+				{
+					this.Onsend_dateChanging(value);
+					this.SendPropertyChanging();
+					this._send_date = value;
+					this.SendPropertyChanged("send_date");
+					this.Onsend_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_book_date", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> book_date
+		{
+			get
+			{
+				return this._book_date;
+			}
+			set
+			{
+				if ((this._book_date != value))
+				{
+					this.Onbook_dateChanging(value);
+					this.SendPropertyChanging();
+					this._book_date = value;
+					this.SendPropertyChanged("book_date");
+					this.Onbook_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_send_user", DbType="VarChar(100)")]
+		public string send_user
+		{
+			get
+			{
+				return this._send_user;
+			}
+			set
+			{
+				if ((this._send_user != value))
+				{
+					this.Onsend_userChanging(value);
+					this.SendPropertyChanging();
+					this._send_user = value;
+					this.SendPropertyChanged("send_user");
+					this.Onsend_userChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_leaving_days")]
+	public partial class vw_leaving_days
+	{
+		
+		private int _id;
+		
+		private string _sys_no;
+		
+		private string _applier_num;
+		
+		private string _applier_name;
+		
+		private string _leave_type;
+		
+		private System.Nullable<System.DateTime> _from_date;
+		
+		private System.Nullable<System.DateTime> _to_date;
+		
+		private System.Nullable<int> _work_days;
+		
+		private System.Nullable<decimal> _work_hours;
+		
+		private System.Nullable<System.DateTime> _apply_time;
+		
+		private bool _is_continue;
+		
+		public vw_leaving_days()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sys_no", DbType="VarChar(50)")]
+		public string sys_no
+		{
+			get
+			{
+				return this._sys_no;
+			}
+			set
+			{
+				if ((this._sys_no != value))
+				{
+					this._sys_no = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_applier_num", DbType="VarChar(50)")]
+		public string applier_num
+		{
+			get
+			{
+				return this._applier_num;
+			}
+			set
+			{
+				if ((this._applier_num != value))
+				{
+					this._applier_num = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_applier_name", DbType="VarChar(50)")]
+		public string applier_name
+		{
+			get
+			{
+				return this._applier_name;
+			}
+			set
+			{
+				if ((this._applier_name != value))
+				{
+					this._applier_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_leave_type", DbType="VarChar(50)")]
+		public string leave_type
+		{
+			get
+			{
+				return this._leave_type;
+			}
+			set
+			{
+				if ((this._leave_type != value))
+				{
+					this._leave_type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_from_date", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> from_date
+		{
+			get
+			{
+				return this._from_date;
+			}
+			set
+			{
+				if ((this._from_date != value))
+				{
+					this._from_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_to_date", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> to_date
+		{
+			get
+			{
+				return this._to_date;
+			}
+			set
+			{
+				if ((this._to_date != value))
+				{
+					this._to_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_work_days", DbType="Int")]
+		public System.Nullable<int> work_days
+		{
+			get
+			{
+				return this._work_days;
+			}
+			set
+			{
+				if ((this._work_days != value))
+				{
+					this._work_days = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_work_hours", DbType="Decimal(4,1)")]
+		public System.Nullable<decimal> work_hours
+		{
+			get
+			{
+				return this._work_hours;
+			}
+			set
+			{
+				if ((this._work_hours != value))
+				{
+					this._work_hours = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_apply_time", DbType="DateTime")]
+		public System.Nullable<System.DateTime> apply_time
+		{
+			get
+			{
+				return this._apply_time;
+			}
+			set
+			{
+				if ((this._apply_time != value))
+				{
+					this._apply_time = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_continue", DbType="Bit NOT NULL")]
+		public bool is_continue
+		{
+			get
+			{
+				return this._is_continue;
+			}
+			set
+			{
+				if ((this._is_continue != value))
+				{
+					this._is_continue = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.flow_auditorRelation")]
+	public partial class flow_auditorRelation : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _bill_type;
+		
+		private string _relate_name;
+		
+		private string _relate_value;
+		
+		private string _relate_text;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onbill_typeChanging(string value);
+    partial void Onbill_typeChanged();
+    partial void Onrelate_nameChanging(string value);
+    partial void Onrelate_nameChanged();
+    partial void Onrelate_valueChanging(string value);
+    partial void Onrelate_valueChanged();
+    partial void Onrelate_textChanging(string value);
+    partial void Onrelate_textChanged();
+    #endregion
+		
+		public flow_auditorRelation()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bill_type", DbType="VarChar(50)")]
+		public string bill_type
+		{
+			get
+			{
+				return this._bill_type;
+			}
+			set
+			{
+				if ((this._bill_type != value))
+				{
+					this.Onbill_typeChanging(value);
+					this.SendPropertyChanging();
+					this._bill_type = value;
+					this.SendPropertyChanged("bill_type");
+					this.Onbill_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_relate_name", DbType="VarChar(50)")]
+		public string relate_name
+		{
+			get
+			{
+				return this._relate_name;
+			}
+			set
+			{
+				if ((this._relate_name != value))
+				{
+					this.Onrelate_nameChanging(value);
+					this.SendPropertyChanging();
+					this._relate_name = value;
+					this.SendPropertyChanged("relate_name");
+					this.Onrelate_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_relate_value", DbType="VarChar(500)")]
+		public string relate_value
+		{
+			get
+			{
+				return this._relate_value;
+			}
+			set
+			{
+				if ((this._relate_value != value))
+				{
+					this.Onrelate_valueChanging(value);
+					this.SendPropertyChanging();
+					this._relate_value = value;
+					this.SendPropertyChanged("relate_value");
+					this.Onrelate_valueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_relate_text", DbType="VarChar(50)")]
+		public string relate_text
+		{
+			get
+			{
+				return this._relate_text;
+			}
+			set
+			{
+				if ((this._relate_text != value))
+				{
+					this.Onrelate_textChanging(value);
+					this.SendPropertyChanging();
+					this._relate_text = value;
+					this.SendPropertyChanged("relate_text");
+					this.Onrelate_textChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ep_repairers")]
+	public partial class vw_ep_repairers
+	{
+		
+		private string _eq_dep_name;
+		
+		private string _eq_dep_num;
+		
+		private string _pr_dep_name;
+		
+		private string _pr_dep_num;
+		
+		private string _repairer_num;
+		
+		private string _repairer_name;
+		
+		public vw_ep_repairers()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eq_dep_name", DbType="NVarChar(50)")]
+		public string eq_dep_name
+		{
+			get
+			{
+				return this._eq_dep_name;
+			}
+			set
+			{
+				if ((this._eq_dep_name != value))
+				{
+					this._eq_dep_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_eq_dep_num", DbType="VarChar(50)")]
+		public string eq_dep_num
+		{
+			get
+			{
+				return this._eq_dep_num;
+			}
+			set
+			{
+				if ((this._eq_dep_num != value))
+				{
+					this._eq_dep_num = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pr_dep_name", DbType="NVarChar(50)")]
+		public string pr_dep_name
+		{
+			get
+			{
+				return this._pr_dep_name;
+			}
+			set
+			{
+				if ((this._pr_dep_name != value))
+				{
+					this._pr_dep_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pr_dep_num", DbType="VarChar(50)")]
+		public string pr_dep_num
+		{
+			get
+			{
+				return this._pr_dep_num;
+			}
+			set
+			{
+				if ((this._pr_dep_num != value))
+				{
+					this._pr_dep_num = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repairer_num", DbType="VarChar(50)")]
+		public string repairer_num
+		{
+			get
+			{
+				return this._repairer_num;
+			}
+			set
+			{
+				if ((this._repairer_num != value))
+				{
+					this._repairer_num = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repairer_name", DbType="VarChar(100)")]
+		public string repairer_name
+		{
+			get
+			{
+				return this._repairer_name;
+			}
+			set
+			{
+				if ((this._repairer_name != value))
+				{
+					this._repairer_name = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_ieAuditors")]
+	public partial class ei_ieAuditors : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _bus_name;
+		
+		private string _dep_names;
+		
+		private string _bus_minister_no;
+		
+		private string _bus_minister_name;
+		
+		private string _ie_leader_no;
+		
+		private string _ie_leader_name;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onbus_nameChanging(string value);
+    partial void Onbus_nameChanged();
+    partial void Ondep_namesChanging(string value);
+    partial void Ondep_namesChanged();
+    partial void Onbus_minister_noChanging(string value);
+    partial void Onbus_minister_noChanged();
+    partial void Onbus_minister_nameChanging(string value);
+    partial void Onbus_minister_nameChanged();
+    partial void Onie_leader_noChanging(string value);
+    partial void Onie_leader_noChanged();
+    partial void Onie_leader_nameChanging(string value);
+    partial void Onie_leader_nameChanged();
+    #endregion
+		
+		public ei_ieAuditors()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bus_name", DbType="NVarChar(50)")]
+		public string bus_name
+		{
+			get
+			{
+				return this._bus_name;
+			}
+			set
+			{
+				if ((this._bus_name != value))
+				{
+					this.Onbus_nameChanging(value);
+					this.SendPropertyChanging();
+					this._bus_name = value;
+					this.SendPropertyChanged("bus_name");
+					this.Onbus_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dep_names", DbType="NVarChar(1000)")]
+		public string dep_names
+		{
+			get
+			{
+				return this._dep_names;
+			}
+			set
+			{
+				if ((this._dep_names != value))
+				{
+					this.Ondep_namesChanging(value);
+					this.SendPropertyChanging();
+					this._dep_names = value;
+					this.SendPropertyChanged("dep_names");
+					this.Ondep_namesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bus_minister_no", DbType="VarChar(50)")]
+		public string bus_minister_no
+		{
+			get
+			{
+				return this._bus_minister_no;
+			}
+			set
+			{
+				if ((this._bus_minister_no != value))
+				{
+					this.Onbus_minister_noChanging(value);
+					this.SendPropertyChanging();
+					this._bus_minister_no = value;
+					this.SendPropertyChanged("bus_minister_no");
+					this.Onbus_minister_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bus_minister_name", DbType="NVarChar(50)")]
+		public string bus_minister_name
+		{
+			get
+			{
+				return this._bus_minister_name;
+			}
+			set
+			{
+				if ((this._bus_minister_name != value))
+				{
+					this.Onbus_minister_nameChanging(value);
+					this.SendPropertyChanging();
+					this._bus_minister_name = value;
+					this.SendPropertyChanged("bus_minister_name");
+					this.Onbus_minister_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ie_leader_no", DbType="VarChar(50)")]
+		public string ie_leader_no
+		{
+			get
+			{
+				return this._ie_leader_no;
+			}
+			set
+			{
+				if ((this._ie_leader_no != value))
+				{
+					this.Onie_leader_noChanging(value);
+					this.SendPropertyChanging();
+					this._ie_leader_no = value;
+					this.SendPropertyChanged("ie_leader_no");
+					this.Onie_leader_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ie_leader_name", DbType="NVarChar(50)")]
+		public string ie_leader_name
+		{
+			get
+			{
+				return this._ie_leader_name;
+			}
+			set
+			{
+				if ((this._ie_leader_name != value))
+				{
+					this.Onie_leader_nameChanging(value);
+					this.SendPropertyChanging();
+					this._ie_leader_name = value;
+					this.SendPropertyChanged("ie_leader_name");
+					this.Onie_leader_nameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_jqApply")]
+	public partial class ei_jqApply : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _sys_no;
+		
+		private string _applier_num;
+		
+		private string _applier_name;
+		
+		private System.Nullable<System.DateTime> _apply_time;
+		
+		private string _quit_type;
+		
+		private string _card_number;
+		
+		private string _name;
+		
+		private string _sex;
+		
+		private string _dep_name;
+		
+		private string _position;
+		
+		private string _education;
+		
+		private string _salary_type;
+		
+		private string _hometown;
+		
+		private string _account;
+		
+		private System.Nullable<System.DateTime> _absent_from;
+		
+		private System.Nullable<System.DateTime> _absent_to;
+		
+		private System.Nullable<decimal> _absent_days;
+		
+		private System.Nullable<char> _has_connect_emp;
+		
+		private string _connect_emp_phone;
+		
+		private System.Nullable<char> _has_connect_family;
+		
+		private string _connect_family_phone;
+		
+		private System.Nullable<char> _has_resign_apply;
+		
+		private string _auto_quit_comment;
+		
+		private string _quit_reason;
+		
+		private string _quit_suggestion;
+		
+		private string _work_evaluation;
+		
+		private string _work_comment;
+		
+		private string _wanna_employ;
+		
+		private string _employ_comment;
+		
+		private string _group_leader_name;
+		
+		private string _group_leader_num;
+		
+		private string _charger_name;
+		
+		private string _charger_num;
+		
+		private string _produce_minister_name;
+		
+		private string _produce_minister_num;
+		
+		private string _dep_charger_name;
+		
+		private string _dep_charger_num;
+		
+		private string _highest_charger_name;
+		
+		private string _highest_charger_num;
+		
+		private System.Nullable<System.DateTime> _resign_apply_date;
+		
+		private string _salary_clear_way;
+		
+		private System.Nullable<System.DateTime> _leave_date;
+		
+		private System.Nullable<bool> _check1;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onsys_noChanging(string value);
+    partial void Onsys_noChanged();
+    partial void Onapplier_numChanging(string value);
+    partial void Onapplier_numChanged();
+    partial void Onapplier_nameChanging(string value);
+    partial void Onapplier_nameChanged();
+    partial void Onapply_timeChanging(System.Nullable<System.DateTime> value);
+    partial void Onapply_timeChanged();
+    partial void Onquit_typeChanging(string value);
+    partial void Onquit_typeChanged();
+    partial void Oncard_numberChanging(string value);
+    partial void Oncard_numberChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnsexChanging(string value);
+    partial void OnsexChanged();
+    partial void Ondep_nameChanging(string value);
+    partial void Ondep_nameChanged();
+    partial void OnpositionChanging(string value);
+    partial void OnpositionChanged();
+    partial void OneducationChanging(string value);
+    partial void OneducationChanged();
+    partial void Onsalary_typeChanging(string value);
+    partial void Onsalary_typeChanged();
+    partial void OnhometownChanging(string value);
+    partial void OnhometownChanged();
+    partial void OnaccountChanging(string value);
+    partial void OnaccountChanged();
+    partial void Onabsent_fromChanging(System.Nullable<System.DateTime> value);
+    partial void Onabsent_fromChanged();
+    partial void Onabsent_toChanging(System.Nullable<System.DateTime> value);
+    partial void Onabsent_toChanged();
+    partial void Onabsent_daysChanging(System.Nullable<decimal> value);
+    partial void Onabsent_daysChanged();
+    partial void Onhas_connect_empChanging(System.Nullable<char> value);
+    partial void Onhas_connect_empChanged();
+    partial void Onconnect_emp_phoneChanging(string value);
+    partial void Onconnect_emp_phoneChanged();
+    partial void Onhas_connect_familyChanging(System.Nullable<char> value);
+    partial void Onhas_connect_familyChanged();
+    partial void Onconnect_family_phoneChanging(string value);
+    partial void Onconnect_family_phoneChanged();
+    partial void Onhas_resign_applyChanging(System.Nullable<char> value);
+    partial void Onhas_resign_applyChanged();
+    partial void Onauto_quit_commentChanging(string value);
+    partial void Onauto_quit_commentChanged();
+    partial void Onquit_reasonChanging(string value);
+    partial void Onquit_reasonChanged();
+    partial void Onquit_suggestionChanging(string value);
+    partial void Onquit_suggestionChanged();
+    partial void Onwork_evaluationChanging(string value);
+    partial void Onwork_evaluationChanged();
+    partial void Onwork_commentChanging(string value);
+    partial void Onwork_commentChanged();
+    partial void Onwanna_employChanging(string value);
+    partial void Onwanna_employChanged();
+    partial void Onemploy_commentChanging(string value);
+    partial void Onemploy_commentChanged();
+    partial void Ongroup_leader_nameChanging(string value);
+    partial void Ongroup_leader_nameChanged();
+    partial void Ongroup_leader_numChanging(string value);
+    partial void Ongroup_leader_numChanged();
+    partial void Oncharger_nameChanging(string value);
+    partial void Oncharger_nameChanged();
+    partial void Oncharger_numChanging(string value);
+    partial void Oncharger_numChanged();
+    partial void Onproduce_minister_nameChanging(string value);
+    partial void Onproduce_minister_nameChanged();
+    partial void Onproduce_minister_numChanging(string value);
+    partial void Onproduce_minister_numChanged();
+    partial void Ondep_charger_nameChanging(string value);
+    partial void Ondep_charger_nameChanged();
+    partial void Ondep_charger_numChanging(string value);
+    partial void Ondep_charger_numChanged();
+    partial void Onhighest_charger_nameChanging(string value);
+    partial void Onhighest_charger_nameChanged();
+    partial void Onhighest_charger_numChanging(string value);
+    partial void Onhighest_charger_numChanged();
+    partial void Onresign_apply_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onresign_apply_dateChanged();
+    partial void Onsalary_clear_wayChanging(string value);
+    partial void Onsalary_clear_wayChanged();
+    partial void Onleave_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onleave_dateChanged();
+    partial void Oncheck1Changing(System.Nullable<bool> value);
+    partial void Oncheck1Changed();
+    #endregion
+		
+		public ei_jqApply()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sys_no", DbType="VarChar(50)")]
+		public string sys_no
+		{
+			get
+			{
+				return this._sys_no;
+			}
+			set
+			{
+				if ((this._sys_no != value))
+				{
+					this.Onsys_noChanging(value);
+					this.SendPropertyChanging();
+					this._sys_no = value;
+					this.SendPropertyChanged("sys_no");
+					this.Onsys_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_applier_num", DbType="VarChar(50)")]
+		public string applier_num
+		{
+			get
+			{
+				return this._applier_num;
+			}
+			set
+			{
+				if ((this._applier_num != value))
+				{
+					this.Onapplier_numChanging(value);
+					this.SendPropertyChanging();
+					this._applier_num = value;
+					this.SendPropertyChanged("applier_num");
+					this.Onapplier_numChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_applier_name", DbType="NVarChar(50)")]
+		public string applier_name
+		{
+			get
+			{
+				return this._applier_name;
+			}
+			set
+			{
+				if ((this._applier_name != value))
+				{
+					this.Onapplier_nameChanging(value);
+					this.SendPropertyChanging();
+					this._applier_name = value;
+					this.SendPropertyChanged("applier_name");
+					this.Onapplier_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_apply_time", DbType="DateTime")]
+		public System.Nullable<System.DateTime> apply_time
+		{
+			get
+			{
+				return this._apply_time;
+			}
+			set
+			{
+				if ((this._apply_time != value))
+				{
+					this.Onapply_timeChanging(value);
+					this.SendPropertyChanging();
+					this._apply_time = value;
+					this.SendPropertyChanged("apply_time");
+					this.Onapply_timeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quit_type", DbType="NVarChar(10)")]
+		public string quit_type
+		{
+			get
+			{
+				return this._quit_type;
+			}
+			set
+			{
+				if ((this._quit_type != value))
+				{
+					this.Onquit_typeChanging(value);
+					this.SendPropertyChanging();
+					this._quit_type = value;
+					this.SendPropertyChanged("quit_type");
+					this.Onquit_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_card_number", DbType="VarChar(50)")]
+		public string card_number
+		{
+			get
+			{
+				return this._card_number;
+			}
+			set
+			{
+				if ((this._card_number != value))
+				{
+					this.Oncard_numberChanging(value);
+					this.SendPropertyChanging();
+					this._card_number = value;
+					this.SendPropertyChanged("card_number");
+					this.Oncard_numberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="NVarChar(10)")]
+		public string sex
+		{
+			get
+			{
+				return this._sex;
+			}
+			set
+			{
+				if ((this._sex != value))
+				{
+					this.OnsexChanging(value);
+					this.SendPropertyChanging();
+					this._sex = value;
+					this.SendPropertyChanged("sex");
+					this.OnsexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dep_name", DbType="NVarChar(200)")]
+		public string dep_name
+		{
+			get
+			{
+				return this._dep_name;
+			}
+			set
+			{
+				if ((this._dep_name != value))
+				{
+					this.Ondep_nameChanging(value);
+					this.SendPropertyChanging();
+					this._dep_name = value;
+					this.SendPropertyChanged("dep_name");
+					this.Ondep_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_position", DbType="NVarChar(50)")]
+		public string position
+		{
+			get
+			{
+				return this._position;
+			}
+			set
+			{
+				if ((this._position != value))
+				{
+					this.OnpositionChanging(value);
+					this.SendPropertyChanging();
+					this._position = value;
+					this.SendPropertyChanged("position");
+					this.OnpositionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_education", DbType="NVarChar(50)")]
+		public string education
+		{
+			get
+			{
+				return this._education;
+			}
+			set
+			{
+				if ((this._education != value))
+				{
+					this.OneducationChanging(value);
+					this.SendPropertyChanging();
+					this._education = value;
+					this.SendPropertyChanged("education");
+					this.OneducationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_salary_type", DbType="NVarChar(50)")]
+		public string salary_type
+		{
+			get
+			{
+				return this._salary_type;
+			}
+			set
+			{
+				if ((this._salary_type != value))
+				{
+					this.Onsalary_typeChanging(value);
+					this.SendPropertyChanging();
+					this._salary_type = value;
+					this.SendPropertyChanged("salary_type");
+					this.Onsalary_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hometown", DbType="NVarChar(50)")]
+		public string hometown
+		{
+			get
+			{
+				return this._hometown;
+			}
+			set
+			{
+				if ((this._hometown != value))
+				{
+					this.OnhometownChanging(value);
+					this.SendPropertyChanging();
+					this._hometown = value;
+					this.SendPropertyChanged("hometown");
+					this.OnhometownChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_account", DbType="VarChar(50)")]
+		public string account
+		{
+			get
+			{
+				return this._account;
+			}
+			set
+			{
+				if ((this._account != value))
+				{
+					this.OnaccountChanging(value);
+					this.SendPropertyChanging();
+					this._account = value;
+					this.SendPropertyChanged("account");
+					this.OnaccountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absent_from", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> absent_from
+		{
+			get
+			{
+				return this._absent_from;
+			}
+			set
+			{
+				if ((this._absent_from != value))
+				{
+					this.Onabsent_fromChanging(value);
+					this.SendPropertyChanging();
+					this._absent_from = value;
+					this.SendPropertyChanged("absent_from");
+					this.Onabsent_fromChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absent_to", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> absent_to
+		{
+			get
+			{
+				return this._absent_to;
+			}
+			set
+			{
+				if ((this._absent_to != value))
+				{
+					this.Onabsent_toChanging(value);
+					this.SendPropertyChanging();
+					this._absent_to = value;
+					this.SendPropertyChanged("absent_to");
+					this.Onabsent_toChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absent_days", DbType="Decimal(4,1)")]
+		public System.Nullable<decimal> absent_days
+		{
+			get
+			{
+				return this._absent_days;
+			}
+			set
+			{
+				if ((this._absent_days != value))
+				{
+					this.Onabsent_daysChanging(value);
+					this.SendPropertyChanging();
+					this._absent_days = value;
+					this.SendPropertyChanged("absent_days");
+					this.Onabsent_daysChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_has_connect_emp", DbType="NChar(1)")]
+		public System.Nullable<char> has_connect_emp
+		{
+			get
+			{
+				return this._has_connect_emp;
+			}
+			set
+			{
+				if ((this._has_connect_emp != value))
+				{
+					this.Onhas_connect_empChanging(value);
+					this.SendPropertyChanging();
+					this._has_connect_emp = value;
+					this.SendPropertyChanged("has_connect_emp");
+					this.Onhas_connect_empChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connect_emp_phone", DbType="VarChar(50)")]
+		public string connect_emp_phone
+		{
+			get
+			{
+				return this._connect_emp_phone;
+			}
+			set
+			{
+				if ((this._connect_emp_phone != value))
+				{
+					this.Onconnect_emp_phoneChanging(value);
+					this.SendPropertyChanging();
+					this._connect_emp_phone = value;
+					this.SendPropertyChanged("connect_emp_phone");
+					this.Onconnect_emp_phoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_has_connect_family", DbType="NChar(1)")]
+		public System.Nullable<char> has_connect_family
+		{
+			get
+			{
+				return this._has_connect_family;
+			}
+			set
+			{
+				if ((this._has_connect_family != value))
+				{
+					this.Onhas_connect_familyChanging(value);
+					this.SendPropertyChanging();
+					this._has_connect_family = value;
+					this.SendPropertyChanged("has_connect_family");
+					this.Onhas_connect_familyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_connect_family_phone", DbType="VarChar(50)")]
+		public string connect_family_phone
+		{
+			get
+			{
+				return this._connect_family_phone;
+			}
+			set
+			{
+				if ((this._connect_family_phone != value))
+				{
+					this.Onconnect_family_phoneChanging(value);
+					this.SendPropertyChanging();
+					this._connect_family_phone = value;
+					this.SendPropertyChanged("connect_family_phone");
+					this.Onconnect_family_phoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_has_resign_apply", DbType="NChar(1)")]
+		public System.Nullable<char> has_resign_apply
+		{
+			get
+			{
+				return this._has_resign_apply;
+			}
+			set
+			{
+				if ((this._has_resign_apply != value))
+				{
+					this.Onhas_resign_applyChanging(value);
+					this.SendPropertyChanging();
+					this._has_resign_apply = value;
+					this.SendPropertyChanged("has_resign_apply");
+					this.Onhas_resign_applyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_auto_quit_comment", DbType="NVarChar(500)")]
+		public string auto_quit_comment
+		{
+			get
+			{
+				return this._auto_quit_comment;
+			}
+			set
+			{
+				if ((this._auto_quit_comment != value))
+				{
+					this.Onauto_quit_commentChanging(value);
+					this.SendPropertyChanging();
+					this._auto_quit_comment = value;
+					this.SendPropertyChanged("auto_quit_comment");
+					this.Onauto_quit_commentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quit_reason", DbType="NVarChar(1000)")]
+		public string quit_reason
+		{
+			get
+			{
+				return this._quit_reason;
+			}
+			set
+			{
+				if ((this._quit_reason != value))
+				{
+					this.Onquit_reasonChanging(value);
+					this.SendPropertyChanging();
+					this._quit_reason = value;
+					this.SendPropertyChanged("quit_reason");
+					this.Onquit_reasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quit_suggestion", DbType="NVarChar(1000)")]
+		public string quit_suggestion
+		{
+			get
+			{
+				return this._quit_suggestion;
+			}
+			set
+			{
+				if ((this._quit_suggestion != value))
+				{
+					this.Onquit_suggestionChanging(value);
+					this.SendPropertyChanging();
+					this._quit_suggestion = value;
+					this.SendPropertyChanged("quit_suggestion");
+					this.Onquit_suggestionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_work_evaluation", DbType="NVarChar(50)")]
+		public string work_evaluation
+		{
+			get
+			{
+				return this._work_evaluation;
+			}
+			set
+			{
+				if ((this._work_evaluation != value))
+				{
+					this.Onwork_evaluationChanging(value);
+					this.SendPropertyChanging();
+					this._work_evaluation = value;
+					this.SendPropertyChanged("work_evaluation");
+					this.Onwork_evaluationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_work_comment", DbType="NVarChar(500)")]
+		public string work_comment
+		{
+			get
+			{
+				return this._work_comment;
+			}
+			set
+			{
+				if ((this._work_comment != value))
+				{
+					this.Onwork_commentChanging(value);
+					this.SendPropertyChanging();
+					this._work_comment = value;
+					this.SendPropertyChanged("work_comment");
+					this.Onwork_commentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_wanna_employ", DbType="NVarChar(50)")]
+		public string wanna_employ
+		{
+			get
+			{
+				return this._wanna_employ;
+			}
+			set
+			{
+				if ((this._wanna_employ != value))
+				{
+					this.Onwanna_employChanging(value);
+					this.SendPropertyChanging();
+					this._wanna_employ = value;
+					this.SendPropertyChanged("wanna_employ");
+					this.Onwanna_employChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_employ_comment", DbType="NVarChar(500)")]
+		public string employ_comment
+		{
+			get
+			{
+				return this._employ_comment;
+			}
+			set
+			{
+				if ((this._employ_comment != value))
+				{
+					this.Onemploy_commentChanging(value);
+					this.SendPropertyChanging();
+					this._employ_comment = value;
+					this.SendPropertyChanged("employ_comment");
+					this.Onemploy_commentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_group_leader_name", DbType="NVarChar(50)")]
+		public string group_leader_name
+		{
+			get
+			{
+				return this._group_leader_name;
+			}
+			set
+			{
+				if ((this._group_leader_name != value))
+				{
+					this.Ongroup_leader_nameChanging(value);
+					this.SendPropertyChanging();
+					this._group_leader_name = value;
+					this.SendPropertyChanged("group_leader_name");
+					this.Ongroup_leader_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_group_leader_num", DbType="VarChar(50)")]
+		public string group_leader_num
+		{
+			get
+			{
+				return this._group_leader_num;
+			}
+			set
+			{
+				if ((this._group_leader_num != value))
+				{
+					this.Ongroup_leader_numChanging(value);
+					this.SendPropertyChanging();
+					this._group_leader_num = value;
+					this.SendPropertyChanged("group_leader_num");
+					this.Ongroup_leader_numChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_charger_name", DbType="NVarChar(50)")]
+		public string charger_name
+		{
+			get
+			{
+				return this._charger_name;
+			}
+			set
+			{
+				if ((this._charger_name != value))
+				{
+					this.Oncharger_nameChanging(value);
+					this.SendPropertyChanging();
+					this._charger_name = value;
+					this.SendPropertyChanged("charger_name");
+					this.Oncharger_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_charger_num", DbType="VarChar(50)")]
+		public string charger_num
+		{
+			get
+			{
+				return this._charger_num;
+			}
+			set
+			{
+				if ((this._charger_num != value))
+				{
+					this.Oncharger_numChanging(value);
+					this.SendPropertyChanging();
+					this._charger_num = value;
+					this.SendPropertyChanged("charger_num");
+					this.Oncharger_numChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_produce_minister_name", DbType="NVarChar(50)")]
+		public string produce_minister_name
+		{
+			get
+			{
+				return this._produce_minister_name;
+			}
+			set
+			{
+				if ((this._produce_minister_name != value))
+				{
+					this.Onproduce_minister_nameChanging(value);
+					this.SendPropertyChanging();
+					this._produce_minister_name = value;
+					this.SendPropertyChanged("produce_minister_name");
+					this.Onproduce_minister_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_produce_minister_num", DbType="VarChar(50)")]
+		public string produce_minister_num
+		{
+			get
+			{
+				return this._produce_minister_num;
+			}
+			set
+			{
+				if ((this._produce_minister_num != value))
+				{
+					this.Onproduce_minister_numChanging(value);
+					this.SendPropertyChanging();
+					this._produce_minister_num = value;
+					this.SendPropertyChanged("produce_minister_num");
+					this.Onproduce_minister_numChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dep_charger_name", DbType="NVarChar(50)")]
+		public string dep_charger_name
+		{
+			get
+			{
+				return this._dep_charger_name;
+			}
+			set
+			{
+				if ((this._dep_charger_name != value))
+				{
+					this.Ondep_charger_nameChanging(value);
+					this.SendPropertyChanging();
+					this._dep_charger_name = value;
+					this.SendPropertyChanged("dep_charger_name");
+					this.Ondep_charger_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dep_charger_num", DbType="VarChar(50)")]
+		public string dep_charger_num
+		{
+			get
+			{
+				return this._dep_charger_num;
+			}
+			set
+			{
+				if ((this._dep_charger_num != value))
+				{
+					this.Ondep_charger_numChanging(value);
+					this.SendPropertyChanging();
+					this._dep_charger_num = value;
+					this.SendPropertyChanged("dep_charger_num");
+					this.Ondep_charger_numChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_highest_charger_name", DbType="NVarChar(50)")]
+		public string highest_charger_name
+		{
+			get
+			{
+				return this._highest_charger_name;
+			}
+			set
+			{
+				if ((this._highest_charger_name != value))
+				{
+					this.Onhighest_charger_nameChanging(value);
+					this.SendPropertyChanging();
+					this._highest_charger_name = value;
+					this.SendPropertyChanged("highest_charger_name");
+					this.Onhighest_charger_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_highest_charger_num", DbType="VarChar(50)")]
+		public string highest_charger_num
+		{
+			get
+			{
+				return this._highest_charger_num;
+			}
+			set
+			{
+				if ((this._highest_charger_num != value))
+				{
+					this.Onhighest_charger_numChanging(value);
+					this.SendPropertyChanging();
+					this._highest_charger_num = value;
+					this.SendPropertyChanged("highest_charger_num");
+					this.Onhighest_charger_numChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resign_apply_date", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> resign_apply_date
+		{
+			get
+			{
+				return this._resign_apply_date;
+			}
+			set
+			{
+				if ((this._resign_apply_date != value))
+				{
+					this.Onresign_apply_dateChanging(value);
+					this.SendPropertyChanging();
+					this._resign_apply_date = value;
+					this.SendPropertyChanged("resign_apply_date");
+					this.Onresign_apply_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_salary_clear_way", DbType="NVarChar(50)")]
+		public string salary_clear_way
+		{
+			get
+			{
+				return this._salary_clear_way;
+			}
+			set
+			{
+				if ((this._salary_clear_way != value))
+				{
+					this.Onsalary_clear_wayChanging(value);
+					this.SendPropertyChanging();
+					this._salary_clear_way = value;
+					this.SendPropertyChanged("salary_clear_way");
+					this.Onsalary_clear_wayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_leave_date", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> leave_date
+		{
+			get
+			{
+				return this._leave_date;
+			}
+			set
+			{
+				if ((this._leave_date != value))
+				{
+					this.Onleave_dateChanging(value);
+					this.SendPropertyChanging();
+					this._leave_date = value;
+					this.SendPropertyChanged("leave_date");
+					this.Onleave_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_check1", DbType="Bit")]
+		public System.Nullable<bool> check1
+		{
+			get
+			{
+				return this._check1;
+			}
+			set
+			{
+				if ((this._check1 != value))
+				{
+					this.Oncheck1Changing(value);
+					this.SendPropertyChanging();
+					this._check1 = value;
+					this.SendPropertyChanged("check1");
+					this.Oncheck1Changed();
 				}
 			}
 		}

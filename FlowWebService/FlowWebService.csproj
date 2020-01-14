@@ -74,7 +74,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Interface\IBeforeStartFlow.cs" />
+    <Compile Include="Interface\ICancelFlowAfterFinish.cs" />
     <Compile Include="Interface\IFinishFlow.cs" />
+    <Compile Include="Interface\IFlowQueue.cs" />
+    <Compile Include="Interface\IReturnToBeforeStep.cs" />
+    <Compile Include="Interface\IRollBack.cs" />
+    <Compile Include="Interface\IStepName.cs" />
     <Compile Include="Models\ALModels.cs" />
     <Compile Include="Models\DormRepairTestModel.cs" />
     <Compile Include="Models\FlowDB.designer.cs">
@@ -85,8 +90,20 @@
     <Compile Include="Models\FlowModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\ALRule.cs" />
+    <Compile Include="Rules\APRule.cs" />
     <Compile Include="Rules\BaseRule.cs" />
+    <Compile Include="Rules\CRRule.cs" />
     <Compile Include="Rules\DPRule.cs" />
+    <Compile Include="Rules\EPRule.cs" />
+    <Compile Include="Rules\ETRule.cs" />
+    <Compile Include="Rules\IERule.cs" />
+    <Compile Include="Rules\SJRule.cs" />
+    <Compile Include="Rules\JQRule.cs" />
+    <Compile Include="Rules\SARule.cs" />
+    <Compile Include="Rules\SPRule.cs" />
+    <Compile Include="Rules\SVRule.cs" />
+    <Compile Include="Rules\TIRule.cs" />
+    <Compile Include="Rules\UCRule.cs" />
     <Compile Include="Utils\BillUtils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
   </ItemGroup>

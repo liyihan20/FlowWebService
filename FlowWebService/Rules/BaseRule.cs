@@ -84,11 +84,11 @@ namespace FlowWebService.Rules
             catch {
                 throw new Exception("部门不存在，编码：" + depNo);
             }
-            string[] spNode=new string[]{"AH审批","行政审批"};
+            string[] spNode = new string[] { "AH审批", "行政审批" };
             var auditNodes = db.ei_departmentAuditNode.Where(a => a.ei_department == dep && a.FProcessName == processName && a.ei_department.FIsAuditNode == true && !spNode.Contains(a.FAuditNodeName)).ToList() ;
             ei_departmentAuditNode node = null;
-            int currentNum = 0;
-            while (node == null && dep.FParent != null) {
+            int currentNum = 0;            
+            while (node == null && dep != null) {
                 if (auditNodes.Count() > 0) {
                     if (auditNodes.First().ei_departmentAuditUser.Where(u => u.FBeginTime <= DateTime.Now && u.FEndTime >= DateTime.Now && (u.isDeleted == false || u.isDeleted == null)).Count() > 0) {
                         currentNum++;
@@ -98,8 +98,13 @@ namespace FlowWebService.Rules
                         }
                     }
                 }
-                dep = db.ei_department.Single(d => d.FNumber == dep.FParent);
-                auditNodes = db.ei_departmentAuditNode.Where(a => a.ei_department == dep && a.FProcessName == processName && a.ei_department.FIsAuditNode == true && !spNode.Contains(a.FAuditNodeName)).ToList();
+                if (dep.FParent != null) {
+                    dep = db.ei_department.Single(d => d.FNumber == dep.FParent);
+                    auditNodes = db.ei_departmentAuditNode.Where(a => a.ei_department == dep && a.FProcessName == processName && a.ei_department.FIsAuditNode == true && !spNode.Contains(a.FAuditNodeName)).ToList();
+                }
+                else {
+                    dep = null;
+                }
             }
             if (node != null) {
                 flow_applyEntryQueue queue = new flow_applyEntryQueue();
@@ -141,7 +146,7 @@ namespace FlowWebService.Rules
         /// <param name="dep">部门</param>
         /// <param name="processName">流程名称</param>
         /// <returns></returns>
-        protected flow_applyEntryQueue GetGivenDepAuditor(ei_department dep, string processName)
+        protected flow_applyEntryQueue GetGivenDepAuditor(ei_department dep, string processName, bool canBeNull = false)
         {
             var auditNodes = db.ei_departmentAuditNode.Where(a => a.ei_department == dep && a.FProcessName == processName && a.ei_department.FIsAuditNode == true).ToList();
             ei_departmentAuditNode node = null;
@@ -151,6 +156,9 @@ namespace FlowWebService.Rules
                 }
             }
             else {
+                if (canBeNull) {
+                    return null;
+                }
                 throw new Exception("部门（" + dep.FNumber + ":" + dep.FName + "）没有启用审批节点");
             }
             if (node != null) {
@@ -194,14 +202,17 @@ namespace FlowWebService.Rules
 
             ei_department startDep = db.ei_department.Single(d => d.FNumber == startDepNo);
             while (target == null && startDep.FParent != null) {
-                var parentDep=db.ei_department.Single(d=>d.FNumber==startDep.FParent);
-                var resultDeps = db.ei_departmentAuditNode.Where(d => d.FDepartmentId == parentDep.id && d.FAuditNodeName == auditNodeName && d.FProcessName == processName).ToList();
-                if (resultDeps.Count() > 0) {
-                    target = resultDeps.First().ei_department;
+                var parentDep = db.ei_department.Single(d => d.FNumber == startDep.FParent);
+                if (parentDep.FIsAuditNode == true) {
+                    var resultDeps = db.ei_departmentAuditNode.Where(d => d.FDepartmentId == parentDep.id && d.FAuditNodeName == auditNodeName && d.FProcessName == processName).ToList();
+                    if (resultDeps.Count() > 0) {
+                        target = resultDeps.First().ei_department;
+                    }
                 }
-                else {
+                if (target == null) {
                     startDep = db.ei_department.Single(d => d.FNumber == startDep.FParent);
                 }
+                
             }
 
             return target;
