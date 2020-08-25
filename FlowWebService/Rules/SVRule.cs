@@ -47,6 +47,16 @@ namespace FlowWebService.Rules
                     auditors = "06101101"
                 });
             }
+            else if (depNo.StartsWith("4")) {
+                //光电仁寿审批人：袁大军101028026
+                list.Add(new flow_applyEntryQueue()
+                {
+                    step = list.Count() + 1,
+                    step_name = "AH审批",
+                    sys_no = list.First().sys_no,
+                    auditors = "101028026"
+                });
+            }
             else {
                 //其它罗继旺
                 list.Add(new flow_applyEntryQueue()

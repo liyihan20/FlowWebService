@@ -214,6 +214,9 @@ namespace FlowWebService.Rules
                 if (depName.Contains("惠州")) {
                     return string.Join(",", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "AH审批" && f.relate_text == "惠州月薪").Select(f => f.relate_value).ToArray()); //AH
                 }
+                else if (depName.Contains("惠州仁寿")) {
+                    return string.Join(",", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "AH审批" && f.relate_text == "光电仁寿月薪").Select(f => f.relate_value).ToArray()); //AH
+                }
                 else {
                     return string.Join(",", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "AH审批" && f.relate_text == "汕尾月薪").Select(f => f.relate_value).ToArray()); //AH
                 }

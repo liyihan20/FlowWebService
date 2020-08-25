@@ -33,6 +33,7 @@ namespace FlowWebService.Rules
 
         /// <summary>
         /// 事业部长审批，根据不同生产事业部选择
+        /// 2020-4-24 此环节取消
         /// </summary>
         /// <param name="apply"></param>
         /// <param name="formJson"></param>

@@ -66,7 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FlowSvr.asmx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlowSvr.asmx.cs">
@@ -93,10 +95,14 @@
     <Compile Include="Rules\APRule.cs" />
     <Compile Include="Rules\BaseRule.cs" />
     <Compile Include="Rules\CRRule.cs" />
+    <Compile Include="Rules\DERule.cs" />
     <Compile Include="Rules\DPRule.cs" />
     <Compile Include="Rules\EPRule.cs" />
     <Compile Include="Rules\ETRule.cs" />
     <Compile Include="Rules\IERule.cs" />
+    <Compile Include="Rules\ITRule.cs" />
+    <Compile Include="Rules\KSRule.cs" />
+    <Compile Include="Rules\MQRule.cs" />
     <Compile Include="Rules\SJRule.cs" />
     <Compile Include="Rules\JQRule.cs" />
     <Compile Include="Rules\SARule.cs" />

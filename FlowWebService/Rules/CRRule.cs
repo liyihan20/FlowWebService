@@ -92,14 +92,16 @@ namespace FlowWebService.Rules
                     node = dep.ei_departmentAuditNode.Where(d => d.FProcessName == processName && !spNode.Contains(d.FAuditNodeName) && dep.FIsAuditNode == true).FirstOrDefault();
                     if (node != null) {
                         var auditUser = node.ei_departmentAuditUser.Where(u => u.FBeginTime <= DateTime.Now && u.FEndTime >= DateTime.Now && (u.isDeleted == false || u.isDeleted == null)).ToList();
-                        flow_applyEntryQueue queue = new flow_applyEntryQueue();
-                        queue.countersign = node.FIsCounterSign;
-                        queue.step_name = node.FAuditNodeName;
-                        queue.auditors = string.Join(";", auditUser.Select(u => u.FAuditorNumber).ToArray());
-                        queue.step = step++;
-                        queue.sys_no = sysNo;
-                        if (list.Where(l => l.auditors == queue.auditors).Count() == 0) {
-                            list.Add(queue);
+                        if (auditUser.Count() > 0) {
+                            flow_applyEntryQueue queue = new flow_applyEntryQueue();
+                            queue.countersign = node.FIsCounterSign;
+                            queue.step_name = node.FAuditNodeName;
+                            queue.auditors = string.Join(";", auditUser.Select(u => u.FAuditorNumber).ToArray());
+                            queue.step = step++;
+                            queue.sys_no = sysNo;
+                            if (list.Where(l => l.auditors == queue.auditors).Count() == 0) {
+                                list.Add(queue);
+                            }
                         }
                     }
                 }

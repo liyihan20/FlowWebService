@@ -12,6 +12,6 @@ namespace FlowWebService.Interface
     /// </summary>
     interface IReturnToBeforeStep
     {
-        string ReturnTo(string cardNumber, string sysNo, string currentStepName, string returnToStepName);
+        string ReturnTo(string cardNumber, string sysNo, string currentStepName, string returnToStepName, string opinion = "");
     }
 }

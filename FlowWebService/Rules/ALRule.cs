@@ -304,10 +304,16 @@ namespace FlowWebService.Rules
 
             //病假60天内累计请假大于30天，或除了产假、病假之外，其它假60天内累计大于15天,需要行政部审批
             DateTime twoMonthsAgo = DateTime.Now.AddMonths(-2);
-            string administrationNo = "1"; //集团,行政审批
+            string administrationNo = ""; //集团,行政审批
             //惠州的由惠州那边行政负责
             if (depNo.StartsWith("106")) {
                 administrationNo = "106";
+            }
+            else if (depNo.StartsWith("4")) {
+                administrationNo = "4";
+            }
+            else {
+                administrationNo = "1";
             }
             //else if (workDays <= 20) { //最近1年没有请过假的，在过年的月份里，请假少于20天的不需要经过行政部
             //    if (DateTime.Now.Month == 1 || DateTime.Now.Month == 2) {
@@ -325,7 +331,6 @@ namespace FlowWebService.Rules
                 ad.step = stepNum++;
                 list.Add(ad);
             }else if ("病假".Equals(leaveType)) {
-
                 //2019-10-17起，只要病假请假天数大于10天，就需要行政部审批
                 if (workDays >= 10) {
                     var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
@@ -333,38 +338,16 @@ namespace FlowWebService.Rules
                     ad.step = stepNum++;
                     list.Add(ad);
                 }
-
-                //已经由行政发送了面谈通知的，就不要再计算
-                //var adminTalkRecord = (from v in db.vw_leaving_days
-                //                       join p in db.ei_leaveDayExceedPushLog on v.sys_no equals p.sys_no
-                //                       where v.applier_num == cardNo
-                //                       && v.leave_type == "病假"
-                //                       && v.from_date > twoMonthsAgo
-                //                       select v).ToList();               
-
-                //if (adminTalkRecord.Count() > 0) {
-                //    twoMonthsAgo = (DateTime)adminTalkRecord.OrderByDescending(a => a.to_date).First().to_date;
-                //}
-
-                //int sickDaysInTwoMonths = workDays;
-                //decimal sickHoursInTwoMonths = workHours;
-                //var sickRecord = db.vw_leaving_days.Where(v => v.applier_num == cardNo && v.leave_type == "病假" && v.to_date > twoMonthsAgo).ToList();
-                //foreach (var sr in sickRecord) {
-                //    if (sr.from_date > twoMonthsAgo) {
-                //        sickDaysInTwoMonths += sr.work_days ?? 0;
-                //    }
-                //    else {
-                //        sickDaysInTwoMonths += ((DateTime)sr.to_date - twoMonthsAgo).Days;
-                //    }
-                //    sickHoursInTwoMonths += sr.work_hours ?? 0;
-                //}
-                //sickDaysInTwoMonths += (int)Math.Floor(sickHoursInTwoMonths / 8);
-                //if (sickDaysInTwoMonths >= 30) {
-                //    var ad = GetGivenDepAuditor(administrationNo, PROCESSNAME);
-                //    ad.sys_no = sysNo;
-                //    ad.step = stepNum++;
-                //    list.Add(ad);
-                //}
+            }
+            else if ("工伤".Equals(leaveType)) {
+                //2020-08-17 工伤假到锡标处审批
+                var ad = new flow_applyEntryQueue();
+                ad.auditors = "080705015";
+                ad.countersign = false;
+                ad.step = stepNum++;
+                ad.step_name = "行政部确认";
+                ad.sys_no = sysNo;
+                list.Add(ad);
             }
             else if (!"产假".Equals(leaveType) && !"年假".Equals(leaveType)) {
                 if (workDays >= 15) {
@@ -378,12 +361,15 @@ namespace FlowWebService.Rules
 
                     string[] otherLeaveType = new string[] { "病假", "产假", "年假" };
 
-                    //以下判断两个月累计是否超过30天的，不管是否有行政约谈过
+                    //以下判断两个月累计是否超过30天的
                     var leaveRecord = db.vw_leaving_days.Where(v => v.applier_num == cardNo && !otherLeaveType.Contains(v.leave_type) && v.to_date > twoMonthsAgo).ToList();
                     int leaveDaysInTwoMonths = workDays;
                     decimal leaveHoursInTwoMonths = workHours;
 
-                    foreach (var lr in leaveRecord) {
+                    foreach (var lr in leaveRecord.OrderByDescending(l=>l.from_date)) {
+                        if (db.ei_leaveDayExceedPushLog.Where(e => e.sys_no == lr.sys_no).Count() > 0) {
+                            break; //行政约谈过的不用到行政部
+                        }
                         if (lr.from_date > twoMonthsAgo) {
                             leaveDaysInTwoMonths += lr.work_days ?? 0;
                         }
