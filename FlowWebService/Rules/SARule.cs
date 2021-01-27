@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using FlowWebService.Interface;
+﻿using FlowWebService.Interface;
 using FlowWebService.Models;
 using Newtonsoft.Json.Linq;
 
@@ -31,6 +27,21 @@ namespace FlowWebService.Rules
             var o = JObject.Parse(formObj);
 
             return (string)o["stock_auditor_num"];
+        }
+
+        //信息管理部开通
+        public string GetIMAuditor(flow_apply app, string formObj)
+        {
+            var o = JObject.Parse(formObj);
+            string account = (string)o["k3_account_name"];
+
+            //光电总部、半导体总部、电子、科技、仁寿经过林剑辉，其它帐套不用 2020-12-14
+            foreach (var a in new string[] { "光电股份有限公司总部", "半导体总部", "信利电子", "光电科技", "光电仁寿" }) {
+                if (account.Contains(a)) {
+                    return "201019001";
+                }
+            }
+            return "";
         }
 
         public void DoAfterFlowSucceed(string formObj, flow_apply app)

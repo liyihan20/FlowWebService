@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using FlowWebService.Interface;
+﻿using FlowWebService.Interface;
 using FlowWebService.Models;
+using System;
+using System.Linq;
 
 namespace FlowWebService.Rules
 {
     public class DERule:BaseRule,IReturnToBeforeStep
     {
         FlowDBDataContext db = new FlowDBDataContext();
-        string BILLTYPE = "DE";
         public string ReturnTo(string cardNumber, string sysNo, string currentStepName, string returnToStepName, string opinion = "")
         {
             //先验证

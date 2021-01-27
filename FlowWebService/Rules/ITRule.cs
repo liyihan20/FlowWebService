@@ -48,7 +48,7 @@ namespace FlowWebService.Rules
             int priority = (int)o["priority"];
             //总裁办优先级为5，部长级别为4，经理级别为3，其他为1
             if (priority > 1) {
-                return string.Join(",", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "信息管理部经理").Select(f => f.relate_value).ToArray()); 
+                return string.Join(";", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "信息管理部经理").Select(f => f.relate_value).ToArray()); 
             }
             return "";
         }

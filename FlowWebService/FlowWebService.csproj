@@ -99,10 +99,13 @@
     <Compile Include="Rules\DPRule.cs" />
     <Compile Include="Rules\EPRule.cs" />
     <Compile Include="Rules\ETRule.cs" />
+    <Compile Include="Rules\HHRule.cs" />
     <Compile Include="Rules\IERule.cs" />
     <Compile Include="Rules\ITRule.cs" />
     <Compile Include="Rules\KSRule.cs" />
     <Compile Include="Rules\MQRule.cs" />
+    <Compile Include="Rules\MTRule.cs" />
+    <Compile Include="Rules\PPRule.cs" />
     <Compile Include="Rules\SJRule.cs" />
     <Compile Include="Rules\JQRule.cs" />
     <Compile Include="Rules\SARule.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Rules\SVRule.cs" />
     <Compile Include="Rules\TIRule.cs" />
     <Compile Include="Rules\UCRule.cs" />
+    <Compile Include="Rules\XARule.cs" />
     <Compile Include="Utils\BillUtils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
   </ItemGroup>

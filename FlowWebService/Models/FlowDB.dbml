@@ -227,6 +227,83 @@
       <Column Name="check1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ei_mtClass" Member="ei_mtClass">
+    <Type Name="ei_mtClass">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="class_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="leader_number" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="leader" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="member_number" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="member" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="create_time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_mtEqInfo" Member="ei_mtEqInfo">
+    <Type Name="ei_mtEqInfo">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="property_number" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="equitment_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="equitment_modual" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="maker" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="using_status" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="check_dep" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="check_list_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="file_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="produce_dep_name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="maintenance_cycle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="important_level" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="last_maintenance_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="next_maintenance_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="maintenance_status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="comment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="creater_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="creater_number" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="class_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="create_time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_spApply" Member="ei_spApply">
+    <Type Name="ei_spApply">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sys_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="applier_num" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="applier_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="applier_phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="apply_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="send_or_receive" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="company" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="bus_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="send_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="content_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="package_num" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="total_weight" Type="System.Decimal" DbType="Decimal(12,1)" CanBeNull="true" />
+      <Column Name="cardboard_num" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cardboard_size" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="box_size" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="aging" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="from_addr" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="to_addr" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="receiver_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="receiver_phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ex_company" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ex_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ex_price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ex_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="apply_reason" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="ex_log" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="has_attachment" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="out_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="out_guard" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="can_print" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="scope" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="out_status" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="out_reason" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="isReturnBack" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="quality_audior_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="quality_audior_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="stock_addr" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.DP_InsertRepairCost" Method="DP_InsertRepairCost">
     <Parameter Name="dorm_number" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="emp_card" Type="System.String" DbType="VarChar(50)" />
@@ -241,5 +318,35 @@
     <Parameter Name="stockNumber" Type="System.String" DbType="VarChar(100)" />
     <Parameter Name="cardNumber" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DoAfterFinishTI" Method="DoAfterFinishTI">
+    <Parameter Name="sys_no" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DP_InsertRepairItemRecord" Method="DP_InsertRepairItemRecord">
+    <Parameter Name="sys_no" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DP_InsertRepairCostNew" Method="DP_InsertRepairCostNew">
+    <Parameter Name="dorm_number" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="emp_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="repair_cost" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="sys_no" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="repair_subject" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="year_month" Type="System.String" DbType="VarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetHREmpInfo" Method="GetHREmpInfo">
+    <Parameter Name="card_no" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="GetHREmpInfoResult">
+      <Column Name="sex" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="emp_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="id_code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NChar(30)" CanBeNull="true" />
+      <Column Name="tp" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="job_level" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+      <Column Name="txm" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="salary_type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

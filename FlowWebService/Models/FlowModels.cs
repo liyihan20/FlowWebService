@@ -30,6 +30,7 @@ namespace FlowWebService.Models
         public string auditors { get; set; }
         public string finalAuditors { get; set; }
         public bool isUserAobrt { get; set; }
+        public string opinion { get; set; }
     }
 
     public class FlowMyAppliesModel

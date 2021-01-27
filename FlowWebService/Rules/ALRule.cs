@@ -1,11 +1,10 @@
-﻿using System;
+﻿using FlowWebService.Interface;
+using FlowWebService.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using FlowWebService.Interface;
-using FlowWebService.Models;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 namespace FlowWebService.Rules
 {
@@ -340,9 +339,18 @@ namespace FlowWebService.Rules
                 }
             }
             else if ("工伤".Equals(leaveType)) {
-                //2020-08-17 工伤假到锡标处审批
+                //2020-08-17 增加工伤假审批,光电仁寿到袁大军，其它的到锡标                
+                string copName;
+                if (depNo.StartsWith("4")) {
+                    copName = "光电仁寿";
+                }
+                else {
+                    copName = "集团";
+                }
+                string auditors = string.Join(";", db.flow_auditorRelation.Where(f => f.bill_type == "AL" && f.relate_name == "工伤假审批" && f.relate_text == copName).Select(f => f.relate_value).ToList());
+
                 var ad = new flow_applyEntryQueue();
-                ad.auditors = "080705015";
+                ad.auditors = auditors;
                 ad.countersign = false;
                 ad.step = stepNum++;
                 ad.step_name = "行政部确认";

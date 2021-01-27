@@ -1,13 +1,15 @@
 ﻿using FlowWebService.Models;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using FlowWebService.Interface;
+using System;
 
 namespace FlowWebService.Rules
 {
     /// <summary>
     /// 紧急出货运输申请
     /// </summary>
-    public class ETRule:BaseRule
+    public class ETRule:BaseRule,IBeforeStartFlow
     {
         FlowDBDataContext db = new FlowDBDataContext();
         JObject o;
@@ -89,5 +91,20 @@ namespace FlowWebService.Rules
             return string.Join(";", marketManager);
         }
 
+
+        public void Validate(string formObj, string createUser)
+        {
+            DateTime fromDate = DateTime.Parse("2021-01-14");
+            var app = db.flow_apply.Where(a => a.create_user == createUser && a.flow_template.bill_type == "ET" && a.success == null && a.start_date >= fromDate).FirstOrDefault();
+
+            if (app != null) {
+                throw new Exception("2021-01-14物流中心限制：存在未完成的申请流程，结束之前不能再次申请，单号【" + app.sys_no+"】，如有问题请联系物流薛子银");
+            }
+        }
+
+        public void DoBeforeFlow(string formObj)
+        {
+            
+        }
     }
 }

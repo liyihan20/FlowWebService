@@ -114,10 +114,21 @@ namespace FlowWebService.Rules
                            join a in db.flow_apply on j.sys_no equals a.sys_no
                            where j.card_number == cardNumber
                            && (a.success == null || a.success == true)
-                           select a;
+                           select a.sys_no;
             if (existsJQ.Count() > 0) {
-                throw new Exception("此离职人已存在未结束或已申请成功的离职申请，不能再次申请！");
+                throw new Exception("此离职人已存在未结束或已申请成功的离职申请，不能再次申请！单号：" + existsJQ.First());
             }
+
+            var existsMQ = from a in db.flow_apply
+                           join t in db.flow_template on a.flow_template_id equals t.id
+                           where t.bill_type == "MQ"
+                           && a.create_user == cardNumber
+                           && (a.success == null || a.success == true)
+                           select a.sys_no;
+            if (existsMQ.Count() > 0) {
+                throw new Exception("存在未结束或已申请成功的辞职申请，不能再次申请！申请单号：" + existsMQ.First());
+            }
+
         }
 
         public void DoBeforeFlow(string formObj)
