@@ -114,6 +114,8 @@
     <Compile Include="Rules\TIRule.cs" />
     <Compile Include="Rules\UCRule.cs" />
     <Compile Include="Rules\XARule.cs" />
+    <Compile Include="Rules\XBRule.cs" />
+    <Compile Include="Rules\XCRule.cs" />
     <Compile Include="Utils\BillUtils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
   </ItemGroup>

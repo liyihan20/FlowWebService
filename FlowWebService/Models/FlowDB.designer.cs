@@ -78,6 +78,9 @@ namespace FlowWebService.Models
     partial void Insertei_spApply(ei_spApply instance);
     partial void Updateei_spApply(ei_spApply instance);
     partial void Deleteei_spApply(ei_spApply instance);
+    partial void Insertei_xcDepTarget(ei_xcDepTarget instance);
+    partial void Updateei_xcDepTarget(ei_xcDepTarget instance);
+    partial void Deleteei_xcDepTarget(ei_xcDepTarget instance);
     #endregion
 		
 		public FlowDBDataContext() : 
@@ -259,6 +262,14 @@ namespace FlowWebService.Models
 			get
 			{
 				return this.GetTable<ei_spApply>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ei_xcDepTarget> ei_xcDepTarget
+		{
+			get
+			{
+				return this.GetTable<ei_xcDepTarget>();
 			}
 		}
 		
@@ -6399,6 +6410,284 @@ namespace FlowWebService.Models
 					this._stock_addr = value;
 					this.SendPropertyChanged("stock_addr");
 					this.Onstock_addrChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_xcDepTarget")]
+	public partial class ei_xcDepTarget : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _year_month;
+		
+		private string _dep_name;
+		
+		private string _manager;
+		
+		private string _manager_no;
+		
+		private int _month_target;
+		
+		private System.DateTime _create_date;
+		
+		private System.DateTime _update_date;
+		
+		private string _create_user;
+		
+		private string _update_user;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onyear_monthChanging(string value);
+    partial void Onyear_monthChanged();
+    partial void Ondep_nameChanging(string value);
+    partial void Ondep_nameChanged();
+    partial void OnmanagerChanging(string value);
+    partial void OnmanagerChanged();
+    partial void Onmanager_noChanging(string value);
+    partial void Onmanager_noChanged();
+    partial void Onmonth_targetChanging(int value);
+    partial void Onmonth_targetChanged();
+    partial void Oncreate_dateChanging(System.DateTime value);
+    partial void Oncreate_dateChanged();
+    partial void Onupdate_dateChanging(System.DateTime value);
+    partial void Onupdate_dateChanged();
+    partial void Oncreate_userChanging(string value);
+    partial void Oncreate_userChanged();
+    partial void Onupdate_userChanging(string value);
+    partial void Onupdate_userChanged();
+    #endregion
+		
+		public ei_xcDepTarget()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_year_month", DbType="VarChar(20)")]
+		public string year_month
+		{
+			get
+			{
+				return this._year_month;
+			}
+			set
+			{
+				if ((this._year_month != value))
+				{
+					this.Onyear_monthChanging(value);
+					this.SendPropertyChanging();
+					this._year_month = value;
+					this.SendPropertyChanged("year_month");
+					this.Onyear_monthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dep_name", DbType="NVarChar(50)")]
+		public string dep_name
+		{
+			get
+			{
+				return this._dep_name;
+			}
+			set
+			{
+				if ((this._dep_name != value))
+				{
+					this.Ondep_nameChanging(value);
+					this.SendPropertyChanging();
+					this._dep_name = value;
+					this.SendPropertyChanged("dep_name");
+					this.Ondep_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_manager", DbType="NVarChar(50)")]
+		public string manager
+		{
+			get
+			{
+				return this._manager;
+			}
+			set
+			{
+				if ((this._manager != value))
+				{
+					this.OnmanagerChanging(value);
+					this.SendPropertyChanging();
+					this._manager = value;
+					this.SendPropertyChanged("manager");
+					this.OnmanagerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_manager_no", DbType="VarChar(50)")]
+		public string manager_no
+		{
+			get
+			{
+				return this._manager_no;
+			}
+			set
+			{
+				if ((this._manager_no != value))
+				{
+					this.Onmanager_noChanging(value);
+					this.SendPropertyChanging();
+					this._manager_no = value;
+					this.SendPropertyChanged("manager_no");
+					this.Onmanager_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_month_target", DbType="Int NOT NULL")]
+		public int month_target
+		{
+			get
+			{
+				return this._month_target;
+			}
+			set
+			{
+				if ((this._month_target != value))
+				{
+					this.Onmonth_targetChanging(value);
+					this.SendPropertyChanging();
+					this._month_target = value;
+					this.SendPropertyChanged("month_target");
+					this.Onmonth_targetChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_create_date", DbType="DateTime NOT NULL")]
+		public System.DateTime create_date
+		{
+			get
+			{
+				return this._create_date;
+			}
+			set
+			{
+				if ((this._create_date != value))
+				{
+					this.Oncreate_dateChanging(value);
+					this.SendPropertyChanging();
+					this._create_date = value;
+					this.SendPropertyChanged("create_date");
+					this.Oncreate_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_update_date", DbType="DateTime NOT NULL")]
+		public System.DateTime update_date
+		{
+			get
+			{
+				return this._update_date;
+			}
+			set
+			{
+				if ((this._update_date != value))
+				{
+					this.Onupdate_dateChanging(value);
+					this.SendPropertyChanging();
+					this._update_date = value;
+					this.SendPropertyChanged("update_date");
+					this.Onupdate_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_create_user", DbType="NVarChar(50)")]
+		public string create_user
+		{
+			get
+			{
+				return this._create_user;
+			}
+			set
+			{
+				if ((this._create_user != value))
+				{
+					this.Oncreate_userChanging(value);
+					this.SendPropertyChanging();
+					this._create_user = value;
+					this.SendPropertyChanged("create_user");
+					this.Oncreate_userChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_update_user", DbType="NVarChar(50)")]
+		public string update_user
+		{
+			get
+			{
+				return this._update_user;
+			}
+			set
+			{
+				if ((this._update_user != value))
+				{
+					this.Onupdate_userChanging(value);
+					this.SendPropertyChanging();
+					this._update_user = value;
+					this.SendPropertyChanged("update_user");
+					this.Onupdate_userChanged();
 				}
 			}
 		}

@@ -304,6 +304,20 @@
       <Column Name="stock_addr" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ei_xcDepTarget" Member="ei_xcDepTarget">
+    <Type Name="ei_xcDepTarget">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="year_month" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="dep_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="manager" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="manager_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="month_target" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="create_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="update_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.DP_InsertRepairCost" Method="DP_InsertRepairCost">
     <Parameter Name="dorm_number" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="emp_card" Type="System.String" DbType="VarChar(50)" />

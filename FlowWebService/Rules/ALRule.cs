@@ -239,7 +239,7 @@ namespace FlowWebService.Rules
 
                     if (workDays >= 3) { 
                         //3天以上需要上一级负责人审批
-                        var n1 = GetParentDepAuditor(depNo, PROCESSNAME, ++skipNum);                        
+                        var n1 = GetParentDepAuditor(depNo, PROCESSNAME, ++skipNum);
                         if (n1 != null) {
                             if (list.Where(l => l.auditors.Contains(n1.auditors)).Count() < 1) { //如果此节点审核人不存在已之前步骤的审批人中，即加入
                                 n1.sys_no = sysNo;

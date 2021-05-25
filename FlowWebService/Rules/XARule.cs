@@ -86,7 +86,7 @@ namespace FlowWebService.Rules
             var result = (from r in db.flow_auditorRelation
                           where r.bill_type == BILLTYPE
                           && (
-                          //(r.relate_name == "部门总经理" && r.relate_text == company + "_" + deptName) || //2020-12-24移出会签，放到下一步
+                          (r.relate_name == "部门总经理" && r.relate_text == company + "_" + deptName) || //2020-12-24移出会签，放到下一步
                           (r.relate_name == "项目大类" && r.relate_text == classification)
                           //|| (r.relate_name == "节省与监督") //2021-01-27 移出会签，放在报价前
                           )
@@ -95,6 +95,11 @@ namespace FlowWebService.Rules
             //分摊部门的总经理也要加入会签
             if (isShareFee) {
                 result.AddRange(((string)o["share_fee_managers"]).Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
+            }
+
+            //2021-04-14 仁寿的需要加上刘蜀鹏审批
+            if (deptName.Contains("仁寿")) {
+                result.Add("171026058");
             }
 
             return string.Join(";", result.Distinct().ToList());

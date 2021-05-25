@@ -91,7 +91,7 @@
         <elementListCompartment Id="cae11431-e7b6-4fbc-8b99-a092a6b64d79" absoluteBounds="9.015, 6.0850000000000009, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(10 : 4.95); (10 : 5.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(10 : 4.95); (10 : 5.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FlowDBDataContext/ei_departmentAuditNode/ei_departmentAuditNode_ei_departmentAuditUser" />
       <nodes>
         <classShapeMoniker Id="664643cc-e756-47c0-a033-06a33d7ef975" />
@@ -156,6 +156,12 @@
       <DataClassMoniker Name="/FlowDBDataContext/ei_spApply" />
       <nestedChildShapes>
         <elementListCompartment Id="3243f3f4-39ef-4d2f-b969-3420bb8c4c08" absoluteBounds="2.2649999999999997, 6.71, 1.9700000000000002, 7.506215413411458" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e1a9203f-85d6-405c-9f98-b11c6c52ba5b" isExpanded="false" absoluteBounds="7.875, 7.625, 2, 0.45">
+      <DataClassMoniker Name="/FlowDBDataContext/ei_xcDepTarget" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c968898e-e700-473e-9415-643858af8080" absoluteBounds="7.89, 8.085, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

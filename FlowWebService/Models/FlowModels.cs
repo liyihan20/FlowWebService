@@ -20,6 +20,7 @@ namespace FlowWebService.Models
         public DateTime? applyTime { get; set; }
         public string sysNo { get; set; }
         public string billType { get; set; }
+        public string processName { get; set; }
         public string title { get; set; }
         public string subTitle { get; set; }
         public string applier { get; set; }
@@ -77,7 +78,7 @@ namespace FlowWebService.Models
         public int step { get; set; }
         public string stepName { get; set; }
         public string auditors { get; set; }
-    }
+    }    
 
     public class HasAuditModel
     {
