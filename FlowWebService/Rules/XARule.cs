@@ -52,11 +52,17 @@ namespace FlowWebService.Rules
         //部门总经理
         public string deptManagementAuditor(flow_apply apply, string formJson)
         {
-            o = JObject.Parse(formJson);
+            o = JObject.Parse(formJson);           
+            
             string deptName = (string)o["dept_name"];
             string company = (string)o["company"];
+            string managerNo = string.Join(";", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "部门总经理" && f.relate_text == company + "_" + deptName).Select(f => f.relate_value).ToArray());
+            
+            if (string.IsNullOrEmpty(managerNo)) {
+                managerNo = (string)o["dept_manager_num"];  //2021-05-25 在数据表增加此总经理厂牌字段，提交后即写入。可解决在流程中间部门名称被变更或删除后找不到总经理审批人的问题。
+            }
 
-            return string.Join(";", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "部门总经理" && f.relate_text == company + "_" + deptName).Select(f => f.relate_value).ToArray());
+            return managerNo;
         }
 
         //采购部审核
@@ -85,12 +91,12 @@ namespace FlowWebService.Rules
 
             var result = (from r in db.flow_auditorRelation
                           where r.bill_type == BILLTYPE
-                          && (
-                          (r.relate_name == "部门总经理" && r.relate_text == company + "_" + deptName) || //2020-12-24移出会签，放到下一步
-                          (r.relate_name == "项目大类" && r.relate_text == classification)
-                          //|| (r.relate_name == "节省与监督") //2021-01-27 移出会签，放在报价前
-                          )
+                          && r.relate_name == "项目大类" 
+                          && r.relate_text == classification
                           select r.relate_value).ToList();
+
+            //加入部门总经理
+            result.AddRange(deptManagementAuditor(apply, formJson).Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
 
             //分摊部门的总经理也要加入会签
             if (isShareFee) {
@@ -112,7 +118,6 @@ namespace FlowWebService.Rules
             string classification = (string)o["classification"];
 
             return string.Join(";", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "项目大类" && f.relate_text == classification).Select(f => f.relate_value).ToArray());
-
         }
 
         //项目小类负责人验收

@@ -68,9 +68,18 @@ namespace FlowWebService.Models
             this.nextAuditors = nextAuditors;
         }
 
+        public FlowResultModel(bool suc, string msg, string nextAuditors,string opinion)
+        {
+            this.suc = suc;
+            this.msg = msg;
+            this.nextAuditors = nextAuditors;
+            this.opinion = opinion;
+        }
+
         public bool suc { get; set; }
         public string msg { get; set; }
         public string nextAuditors { get; set; }
+        public string opinion { get; set; }
     }
 
     public class CurrentAuditModel

@@ -54,9 +54,6 @@ namespace FlowWebService.Models
     partial void Insertei_departmentAuditUser(ei_departmentAuditUser instance);
     partial void Updateei_departmentAuditUser(ei_departmentAuditUser instance);
     partial void Deleteei_departmentAuditUser(ei_departmentAuditUser instance);
-    partial void Insertei_workAgent(ei_workAgent instance);
-    partial void Updateei_workAgent(ei_workAgent instance);
-    partial void Deleteei_workAgent(ei_workAgent instance);
     partial void Insertei_leaveDayExceedPushLog(ei_leaveDayExceedPushLog instance);
     partial void Updateei_leaveDayExceedPushLog(ei_leaveDayExceedPushLog instance);
     partial void Deleteei_leaveDayExceedPushLog(ei_leaveDayExceedPushLog instance);
@@ -81,6 +78,12 @@ namespace FlowWebService.Models
     partial void Insertei_xcDepTarget(ei_xcDepTarget instance);
     partial void Updateei_xcDepTarget(ei_xcDepTarget instance);
     partial void Deleteei_xcDepTarget(ei_xcDepTarget instance);
+    partial void Insertei_workAgent(ei_workAgent instance);
+    partial void Updateei_workAgent(ei_workAgent instance);
+    partial void Deleteei_workAgent(ei_workAgent instance);
+    partial void Insertei_fxType(ei_fxType instance);
+    partial void Updateei_fxType(ei_fxType instance);
+    partial void Deleteei_fxType(ei_fxType instance);
     #endregion
 		
 		public FlowDBDataContext() : 
@@ -185,14 +188,6 @@ namespace FlowWebService.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<ei_workAgent> ei_workAgent
-		{
-			get
-			{
-				return this.GetTable<ei_workAgent>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ei_leaveDayExceedPushLog> ei_leaveDayExceedPushLog
 		{
 			get
@@ -270,6 +265,22 @@ namespace FlowWebService.Models
 			get
 			{
 				return this.GetTable<ei_xcDepTarget>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ei_workAgent> ei_workAgent
+		{
+			get
+			{
+				return this.GetTable<ei_workAgent>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ei_fxType> ei_fxType
+		{
+			get
+			{
+				return this.GetTable<ei_fxType>();
 			}
 		}
 		
@@ -2638,164 +2649,6 @@ namespace FlowWebService.Models
 						this._FDepartmentNodeId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("ei_departmentAuditNode");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_workAgent")]
-	public partial class ei_workAgent : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _emp_number;
-		
-		private string _agent_number;
-		
-		private System.Nullable<System.DateTime> _begin_time;
-		
-		private System.Nullable<System.DateTime> _end_time;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onemp_numberChanging(string value);
-    partial void Onemp_numberChanged();
-    partial void Onagent_numberChanging(string value);
-    partial void Onagent_numberChanged();
-    partial void Onbegin_timeChanging(System.Nullable<System.DateTime> value);
-    partial void Onbegin_timeChanged();
-    partial void Onend_timeChanging(System.Nullable<System.DateTime> value);
-    partial void Onend_timeChanged();
-    #endregion
-		
-		public ei_workAgent()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emp_number", DbType="VarChar(20)")]
-		public string emp_number
-		{
-			get
-			{
-				return this._emp_number;
-			}
-			set
-			{
-				if ((this._emp_number != value))
-				{
-					this.Onemp_numberChanging(value);
-					this.SendPropertyChanging();
-					this._emp_number = value;
-					this.SendPropertyChanged("emp_number");
-					this.Onemp_numberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_agent_number", DbType="VarChar(20)")]
-		public string agent_number
-		{
-			get
-			{
-				return this._agent_number;
-			}
-			set
-			{
-				if ((this._agent_number != value))
-				{
-					this.Onagent_numberChanging(value);
-					this.SendPropertyChanging();
-					this._agent_number = value;
-					this.SendPropertyChanged("agent_number");
-					this.Onagent_numberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_begin_time", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> begin_time
-		{
-			get
-			{
-				return this._begin_time;
-			}
-			set
-			{
-				if ((this._begin_time != value))
-				{
-					this.Onbegin_timeChanging(value);
-					this.SendPropertyChanging();
-					this._begin_time = value;
-					this.SendPropertyChanged("begin_time");
-					this.Onbegin_timeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_end_time", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> end_time
-		{
-			get
-			{
-				return this._end_time;
-			}
-			set
-			{
-				if ((this._end_time != value))
-				{
-					this.Onend_timeChanging(value);
-					this.SendPropertyChanging();
-					this._end_time = value;
-					this.SendPropertyChanged("end_time");
-					this.Onend_timeChanged();
 				}
 			}
 		}
@@ -6688,6 +6541,418 @@ namespace FlowWebService.Models
 					this._update_user = value;
 					this.SendPropertyChanged("update_user");
 					this.Onupdate_userChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_workAgent")]
+	public partial class ei_workAgent : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _emp_number;
+		
+		private string _agent_number;
+		
+		private System.Nullable<System.DateTime> _begin_time;
+		
+		private System.Nullable<System.DateTime> _end_time;
+		
+		private bool _is_replace;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onemp_numberChanging(string value);
+    partial void Onemp_numberChanged();
+    partial void Onagent_numberChanging(string value);
+    partial void Onagent_numberChanged();
+    partial void Onbegin_timeChanging(System.Nullable<System.DateTime> value);
+    partial void Onbegin_timeChanged();
+    partial void Onend_timeChanging(System.Nullable<System.DateTime> value);
+    partial void Onend_timeChanged();
+    partial void Onis_replaceChanging(bool value);
+    partial void Onis_replaceChanged();
+    #endregion
+		
+		public ei_workAgent()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emp_number", DbType="VarChar(20)")]
+		public string emp_number
+		{
+			get
+			{
+				return this._emp_number;
+			}
+			set
+			{
+				if ((this._emp_number != value))
+				{
+					this.Onemp_numberChanging(value);
+					this.SendPropertyChanging();
+					this._emp_number = value;
+					this.SendPropertyChanged("emp_number");
+					this.Onemp_numberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_agent_number", DbType="VarChar(20)")]
+		public string agent_number
+		{
+			get
+			{
+				return this._agent_number;
+			}
+			set
+			{
+				if ((this._agent_number != value))
+				{
+					this.Onagent_numberChanging(value);
+					this.SendPropertyChanging();
+					this._agent_number = value;
+					this.SendPropertyChanged("agent_number");
+					this.Onagent_numberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_begin_time", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> begin_time
+		{
+			get
+			{
+				return this._begin_time;
+			}
+			set
+			{
+				if ((this._begin_time != value))
+				{
+					this.Onbegin_timeChanging(value);
+					this.SendPropertyChanging();
+					this._begin_time = value;
+					this.SendPropertyChanged("begin_time");
+					this.Onbegin_timeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_end_time", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> end_time
+		{
+			get
+			{
+				return this._end_time;
+			}
+			set
+			{
+				if ((this._end_time != value))
+				{
+					this.Onend_timeChanging(value);
+					this.SendPropertyChanging();
+					this._end_time = value;
+					this.SendPropertyChanged("end_time");
+					this.Onend_timeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_replace", DbType="Bit NOT NULL")]
+		public bool is_replace
+		{
+			get
+			{
+				return this._is_replace;
+			}
+			set
+			{
+				if ((this._is_replace != value))
+				{
+					this.Onis_replaceChanging(value);
+					this.SendPropertyChanging();
+					this._is_replace = value;
+					this.SendPropertyChanged("is_replace");
+					this.Onis_replaceChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ei_fxType")]
+	public partial class ei_fxType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _type_no;
+		
+		private string _type_name;
+		
+		private string _type_tip;
+		
+		private string _type_demand;
+		
+		private string _type_process;
+		
+		private string _process_info;
+		
+		private bool _is_deleted;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Ontype_noChanging(string value);
+    partial void Ontype_noChanged();
+    partial void Ontype_nameChanging(string value);
+    partial void Ontype_nameChanged();
+    partial void Ontype_tipChanging(string value);
+    partial void Ontype_tipChanged();
+    partial void Ontype_demandChanging(string value);
+    partial void Ontype_demandChanged();
+    partial void Ontype_processChanging(string value);
+    partial void Ontype_processChanged();
+    partial void Onprocess_infoChanging(string value);
+    partial void Onprocess_infoChanged();
+    partial void Onis_deletedChanging(bool value);
+    partial void Onis_deletedChanged();
+    #endregion
+		
+		public ei_fxType()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type_no", DbType="VarChar(50)")]
+		public string type_no
+		{
+			get
+			{
+				return this._type_no;
+			}
+			set
+			{
+				if ((this._type_no != value))
+				{
+					this.Ontype_noChanging(value);
+					this.SendPropertyChanging();
+					this._type_no = value;
+					this.SendPropertyChanged("type_no");
+					this.Ontype_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type_name", DbType="NVarChar(50)")]
+		public string type_name
+		{
+			get
+			{
+				return this._type_name;
+			}
+			set
+			{
+				if ((this._type_name != value))
+				{
+					this.Ontype_nameChanging(value);
+					this.SendPropertyChanging();
+					this._type_name = value;
+					this.SendPropertyChanged("type_name");
+					this.Ontype_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type_tip", DbType="NVarChar(200)")]
+		public string type_tip
+		{
+			get
+			{
+				return this._type_tip;
+			}
+			set
+			{
+				if ((this._type_tip != value))
+				{
+					this.Ontype_tipChanging(value);
+					this.SendPropertyChanging();
+					this._type_tip = value;
+					this.SendPropertyChanged("type_tip");
+					this.Ontype_tipChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type_demand", DbType="NVarChar(200)")]
+		public string type_demand
+		{
+			get
+			{
+				return this._type_demand;
+			}
+			set
+			{
+				if ((this._type_demand != value))
+				{
+					this.Ontype_demandChanging(value);
+					this.SendPropertyChanging();
+					this._type_demand = value;
+					this.SendPropertyChanged("type_demand");
+					this.Ontype_demandChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type_process", DbType="NVarChar(500)")]
+		public string type_process
+		{
+			get
+			{
+				return this._type_process;
+			}
+			set
+			{
+				if ((this._type_process != value))
+				{
+					this.Ontype_processChanging(value);
+					this.SendPropertyChanging();
+					this._type_process = value;
+					this.SendPropertyChanged("type_process");
+					this.Ontype_processChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_process_info", DbType="NVarChar(500)")]
+		public string process_info
+		{
+			get
+			{
+				return this._process_info;
+			}
+			set
+			{
+				if ((this._process_info != value))
+				{
+					this.Onprocess_infoChanging(value);
+					this.SendPropertyChanging();
+					this._process_info = value;
+					this.SendPropertyChanged("process_info");
+					this.Onprocess_infoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_is_deleted", DbType="Bit NOT NULL")]
+		public bool is_deleted
+		{
+			get
+			{
+				return this._is_deleted;
+			}
+			set
+			{
+				if ((this._is_deleted != value))
+				{
+					this.Onis_deletedChanging(value);
+					this.SendPropertyChanging();
+					this._is_deleted = value;
+					this.SendPropertyChanged("is_deleted");
+					this.Onis_deletedChanged();
 				}
 			}
 		}

@@ -91,5 +91,12 @@ namespace FlowWebService.Rules
             return string.Join(";", auditors);
         }
 
+        //2021-06-08 增加QA审批
+        public string GetQAAuditor(flow_apply apply, string formJson)
+        {
+            var auditors = db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "QA审批").Select(f => f.relate_value).ToArray();
+            return string.Join(";", auditors);
+        }
+
     }
 }

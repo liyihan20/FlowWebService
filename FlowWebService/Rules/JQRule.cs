@@ -231,7 +231,7 @@ namespace FlowWebService.Rules
                 else {
                     return string.Join(",", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "AH审批" && f.relate_text == "汕尾月薪").Select(f => f.relate_value).ToArray()); //AH
                 }
-                
+
             }
             else if ("计件".Equals(salaryType)) {
                 return (string)o["produce_minister_num"]; //生产部长
@@ -240,6 +240,40 @@ namespace FlowWebService.Rules
                 return "";
             }
         }
+
+        //2021-07-21 自离的后勤部要求给范梦莎审批
+        //public string GetDormAuditor(flow_apply apply, string formJson)
+        //{
+        //    o = JObject.Parse(formJson);
+        //    string quitType = (string)o["quit_type"];
+        //    if ("自离".Equals(quitType)) {
+        //        return "160712086";
+        //    }else{
+        //        return "";
+        //    }
+        //}
+
+        //2021-07-21 未联系员工的需要安保部程佳能审批
+        public string GetSecurityAuditor(flow_apply apply, string formJson)
+        {
+            o = JObject.Parse(formJson);
+            string quitType = (string)o["quit_type"];
+            string depName = (string)o["dep_name"];
+
+            if (!depName.Contains("惠州") && !depName.Contains("光电仁寿")) {
+                if ("自离".Equals(quitType)) {
+                    string hasConnectEmp = ((string)o["has_connect_emp"]) ?? "否";
+                    string hasConnectFamily = ((string)o["has_connect_family"]) ?? "否";
+
+                    if (hasConnectEmp.Equals("否") && hasConnectFamily.Equals("否")) {
+                        return "101122041";
+                    }
+                }
+            }
+            return "";
+        }
+
+       
 
         public void CancelFlow(string sysNo, string cardNumber)
         {

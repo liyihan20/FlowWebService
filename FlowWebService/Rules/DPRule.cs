@@ -66,32 +66,30 @@ namespace FlowWebService.Rules
             string yearMonth = DateTime.Now.ToString("yyyyMM");
             string empIdsPay = (string)o["emp_id_should_pay"];
 
-            if (repairCost == 0) {
-                return;
-            }
+            if (repairCost > 0) {
+                if (empIdsPay == null) {
+                    string[] roomates = new string[] { };
+                    if ("舍友分摊".Equals(shareType)) {
+                        roomates = sharePeople.Split(new char[] { ';' });
+                        repairCost = Math.Round(repairCost / (roomates.Count() + 1), 1);
+                    }
 
-            if (empIdsPay == null) {
-                string[] roomates = new string[] { };
-                if ("舍友分摊".Equals(shareType)) {
-                    roomates = sharePeople.Split(new char[] { ';' });
-                    repairCost = Math.Round(repairCost / (roomates.Count() + 1), 1);
+                    //申请人扣费
+                    db.DP_InsertRepairCost(dormNumber, applierNumber, repairCost, sysNo, repairSubject, yearMonth);
+
+                    //舍友扣费
+                    foreach (string roomate in roomates) {
+                        db.DP_InsertRepairCost(dormNumber, roomate, repairCost, sysNo, repairSubject, yearMonth);
+                    }
                 }
-
-                //申请人扣费
-                db.DP_InsertRepairCost(dormNumber, applierNumber, repairCost, sysNo, repairSubject, yearMonth);
-
-                //舍友扣费
-                foreach (string roomate in roomates) {
-                    db.DP_InsertRepairCost(dormNumber, roomate, repairCost, sysNo, repairSubject, yearMonth);
-                }
-            }
-            else {
-                if (!empIdsPay.Equals("")) {
-                    //用empid导入，可以兼容厂外人员 2020-10-28
-                    var empids = empIdsPay.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                    repairCost = Math.Round(repairCost / empids.Count(), 1);
-                    foreach (var empid in empids) {
-                        db.DP_InsertRepairCostNew(dormNumber, int.Parse(empid), repairCost, sysNo, repairSubject, yearMonth);
+                else {
+                    if (!empIdsPay.Equals("")) {
+                        //用empid导入，可以兼容厂外人员 2020-10-28
+                        var empids = empIdsPay.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                        repairCost = Math.Round(repairCost / empids.Count(), 1);
+                        foreach (var empid in empids) {
+                            db.DP_InsertRepairCostNew(dormNumber, int.Parse(empid), repairCost, sysNo, repairSubject, yearMonth);
+                        }
                     }
                 }
             }

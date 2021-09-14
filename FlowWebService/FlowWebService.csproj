@@ -75,6 +75,7 @@
       <DependentUpon>FlowSvr.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Interface\IAfterStepAudited.cs" />
     <Compile Include="Interface\IBeforeStartFlow.cs" />
     <Compile Include="Interface\ICancelFlowAfterFinish.cs" />
     <Compile Include="Interface\IFinishFlow.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Rules\DPRule.cs" />
     <Compile Include="Rules\EPRule.cs" />
     <Compile Include="Rules\ETRule.cs" />
+    <Compile Include="Rules\FXRule.cs" />
     <Compile Include="Rules\HHRule.cs" />
     <Compile Include="Rules\IERule.cs" />
     <Compile Include="Rules\ITRule.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Rules\XARule.cs" />
     <Compile Include="Rules\XBRule.cs" />
     <Compile Include="Rules\XCRule.cs" />
+    <Compile Include="Rules\XDRule.cs" />
     <Compile Include="Utils\BillUtils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
   </ItemGroup>

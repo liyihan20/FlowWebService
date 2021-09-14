@@ -1,17 +1,13 @@
 ﻿using FlowWebService.Models;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using FlowWebService.Interface;
 
 namespace FlowWebService.Rules
 {
     /// <summary>
     /// 部门寄件/收件流程
     /// </summary>
-    public class SPRule:BaseRule,IFinishFlow
+    public class SPRule:BaseRule
     {
         FlowDBDataContext db = new FlowDBDataContext();
         string BILLTYPE = "SP";
@@ -42,6 +38,7 @@ namespace FlowWebService.Rules
         /// <returns></returns>
         public string GetQAAuditor(flow_apply apply, string formJson)
         {
+            // 2021-06-09 是否退换货改为是否信利产品
             o = JObject.Parse(formJson);
             bool isSend = ((string)o["send_or_receive"] == "寄件");
             bool isProduct = ((string)o["content_type"] == "产品");
@@ -81,14 +78,14 @@ namespace FlowWebService.Rules
         /// <returns></returns>
         public string GetLGAuditor(flow_apply apply, string formJson)
         {
-            //2021-1-22 物流也说不需要审批
-            //o = JObject.Parse(formJson);
-            //bool isProduct = ((string)o["content_type"] == "产品" || (string)o["content_type"] == "原材料");
+            //2021-1-22 物流也说不需要审批,2021-6-03 又说要开始审批了，10KG以下也要。
+            o = JObject.Parse(formJson);
+            bool isProduct = ((string)o["content_type"] != "文件");
             //decimal weight = (decimal)o["total_weight"];
 
-            //if (isProduct && weight >= 10) {
-            //    return string.Join(";", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "物流部审批").Select(f => f.relate_value).ToArray());
-            //}
+            if (isProduct) {
+                return string.Join(";", db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "物流部审批").Select(f => f.relate_value).ToArray());
+            }
             return "";
         }
 
@@ -118,27 +115,25 @@ namespace FlowWebService.Rules
             return "";
         }
 
-
-        public void DoAfterFlowSucceed(string formObj, flow_apply app)
+        /// <summary>
+        /// 2021-07-28 增加委外物品类，需营运部佐键审批
+        /// </summary>
+        /// <param name="apply"></param>
+        /// <param name="formJson"></param>
+        /// <returns></returns>
+        public string GetRunningAuditor(flow_apply apply, string formJson)
         {
-            //行政部和物流审批去掉后，设置流程结束时可打印
-            o = JObject.Parse(formObj);
+            o = JObject.Parse(formJson);
             bool isSend = ((string)o["send_or_receive"] == "寄件");
-            bool isProduct = ((string)o["content_type"] == "产品" || (string)o["content_type"] == "原材料");
+            bool isOutStuff = ((string)o["content_type"] == "委外物品");
 
-            if (isSend && isProduct) {
-                var sp = db.ei_spApply.Where(s => s.sys_no == app.sys_no).FirstOrDefault();
-                if (sp != null) {
-                    sp.can_print = true;
-                    sp.out_status = "已打印";
-                    db.SubmitChanges();
-                }
+            if (isSend && isOutStuff) {
+                var auditors = db.flow_auditorRelation.Where(f => f.bill_type == BILLTYPE && f.relate_name == "营运审批").Select(f => f.relate_value).ToArray();
+                if (auditors.Count() > 0) return string.Join(";", auditors);
+
             }
+            return "";
         }
-
-        public void DoAfterFlowFailed(string formObj, flow_apply app)
-        {
-            
-        }
+        
     }
 }

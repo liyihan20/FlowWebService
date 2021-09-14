@@ -116,15 +116,6 @@
       <Association Name="ei_departmentAuditNode_ei_departmentAuditUser" Member="ei_departmentAuditNode" ThisKey="FDepartmentNodeId" OtherKey="id" Type="ei_departmentAuditNode" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ei_workAgent" Member="ei_workAgent">
-    <Type Name="ei_workAgent">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="emp_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="agent_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="begin_time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="end_time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.ei_leaveDayExceedPushLog" Member="ei_leaveDayExceedPushLog">
     <Type Name="ei_leaveDayExceedPushLog">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -316,6 +307,28 @@
       <Column Name="update_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="create_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="update_user" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_workAgent" Member="ei_workAgent">
+    <Type Name="ei_workAgent">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="emp_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="agent_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="begin_time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="end_time" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="is_replace" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ei_fxType" Member="ei_fxType">
+    <Type Name="ei_fxType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="type_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="type_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="type_tip" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="type_demand" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="type_process" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="process_info" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="is_deleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.DP_InsertRepairCost" Method="DP_InsertRepairCost">
